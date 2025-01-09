@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-teal-100 min-h-screen flex items-center justify-center">
+
+    <div class="flex max-w-5xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
+        <!-- Left Panel -->
+        <div
+            class="relative w-1/2 bg-gradient-to-r from-teal-800 via-orange-500 to-blue-600 text-white p-8 flex flex-col justify-center">
+            <!-- Background Circles -->
+            <div class="absolute inset-0">
+                <div class="absolute bg-teal-400 opacity-30 rounded-full w-32 h-32 -top-12 -left-10"></div>
+                <div class="absolute bg-orange-400 opacity-30 rounded-full w-40 h-40 top-10 right-8"></div>
+                <div class="absolute bg-blue-600 opacity-30 rounded-full w-64 h-64 bottom-10 left-0"></div>
+            </div>
+
+            <!-- Text Content -->
+            <div class="relative z-10">
+                <h1 class="text-xl font-semibold mb-4">THEGOOD NETWORK</h1>
+                <h2 class="text-4xl font-bold mb-4">Invite only right now.</h2>
+                <p class="text-sm mb-6">10 Million+ people have joined our network. <br> We invite you to join the
+                    tribe.</p>
+                <p class="text-sm">
+                    Already have an account?
+                    <a href="#" class="underline font-semibold">Sign in</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="w-1/2 p-8 flex flex-col justify-center">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Sign up</h2>
+            <form>
+                <!-- Email Input -->
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-600">Email address</label>
+                    <input type="email" id="email" required
+                        class="w-full border border-gray-300 rounded-lg p-3 mt-1 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                </div>
+                <!-- Password Input -->
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-600">Set password</label>
+                    <input type="password" id="password" required
+                        class="w-full border border-gray-300 rounded-lg p-3 mt-1 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                </div>
+                <!-- Show Password -->
+                <div class="mb-4">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="form-checkbox text-teal-500 border-gray-300">
+                        <span class="ml-2 text-gray-600 text-sm">Show password</span>
+                    </label>
+                </div>
+                <!-- Sign Up Button -->
+                <button type="submit"
+                    class="w-full bg-teal-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-teal-600 transition">
+                    Sign up →
+                </button>
+                <!-- OR Divider -->
+                <div class="mt-6 text-center text-gray-500 text-sm">or</div>
+                <!-- Google Sign-In -->
+                <button type="button"
+                    class="w-full mt-4 flex items-center justify-center border border-gray-300 text-gray-800 py-3 rounded-lg hover:bg-gray-100 transition">
+                    <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="h-5 w-5 mr-3">
+                    Continue with Google
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

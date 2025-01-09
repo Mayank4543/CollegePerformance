@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    #vanta-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      /* overflow-x: hidden; */
+
+    }
+
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Animation styles for text */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subtitle {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1.8s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 2;
+        align-items: center;
+      }
+
+      nav ul li {
+        padding: 0.5rem 0;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+      }
+
+      p.subtitle {
+        font-size: 1rem;
+        text-align: center;
+        padding: 0 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      p.subtitle {
+        font-size: 0.9rem;
+        padding: 0 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="h-screen text-white">
+
+  <div id="root">
+    <nav id="navbar" class="fixed w-full z-50 backdrop-blur-md bg-neutral-900/90 text-white border-b border-neutral-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="el-defr29zm">
+        <div class="flex items-center justify-between h-20" id="el-5skzdr1z">
+          <!-- Logo -->
+          <div class="flex-shrink-0 group" id="el-652itfqz">
+            <h1
+              class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+              id="el-aa77zpi7">CollegeRanking</h1>
+          </div>
+  
+          <!-- Desktop Menu -->
+          <div class="hidden md:block" id="el-uvuid3ax">
+            <div class="ml-10 flex items-center space-x-12" id="el-5yfzsxo6">
+              <a href="#"
+                class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                id="el-vxftzeku">Home</a>
+              <a href="#"
+                class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                id="el-gv1gvlmj">Ranking</a>
+              <a href="#"
+                class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                id="el-n5ekul2r">About</a>
+
+              <a href="#"
+                class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+                id="el-4zrlraz3">Contact</a>
+                <a href="/login"
+                  class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+                  id="el-4zrlraz3">Login</a>
+            </div>
+          </div>
+  
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden" id="el-n1vkom4g">
+            <button id="mobile-menu-button" class="text-white hover:text-purple-400 transition-colors duration-300">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="el-dr0axzoc">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"
+                  id="el-ycsfhr5g"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden">
+        <div class="px-4 py-6 space-y-4 bg-neutral-800/90 backdrop-blur-md border-t border-neutral-700" id="el-a1bapgrh">
+          <a href="#"
+            class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+            id="el-ocge5vmz">Home</a>
+          <a href="#"
+            class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+            id="el-fycto9fn">Products</a>
+          <a href="#"
+            class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+            id="el-k1qbfthw">About</a>
+          <a href="#"
+            class="block px-4 py-3 text-center text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 animate__animated animate__fadeIn"
+            id="el-8h29o724">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <section id="hero" class="bg-neutral-900 text-white min-h-[70vh] pt-20 relative overflow-hidden">
+    <!-- Background gradient effect -->
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-neutral-900/20 backdrop-blur-[120px]"
+      id="el-h19v76hy"></div>
+  
+    <!-- Animated background shapes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" id="el-fma2bzsy">
+      <div class="absolute w-[500px] h-[500px] -top-64 -right-64 bg-purple-600/10 rounded-full blur-3xl animate-pulse"
+        id="el-3z447afa"></div>
+      <div
+        class="absolute w-[300px] h-[300px] top-32 -left-32 bg-purple-400/10 rounded-full blur-2xl animate-pulse delay-700"
+        id="el-r0dypgc3"></div>
+    </div>
+  
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative" id="el-oed80u9y">
+      <div class="grid lg:grid-cols-2 gap-12 items-center" id="el-owhyercl">
+        <div class="space-y-8 [perspective:1000px]" id="el-hiqqndxm">
+          
+  
+          <h1 class="text-4xl md:text-6xl font-bold leading-tight tracking-tight [transform-style:preserve-3d] group"
+            id="el-cu3edvkz">
+          "Find Your College"
+            <span
+              class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600 hover:scale-105 transition-transform duration-300"
+              id="el-6leid8x2">AspirEdge✨</span>
+            <br id="el-vpgeewxv">
+            <span class="block text-3xl md:text-5xl mt-2 opacity-90" id="el-08pjai2v">The Future is right in Hand</span>
+          </h1>
+  
+          <p class="text-neutral-300 text-lg leading-relaxed font-light" id="el-aw0lcv2j">
+          This is a data science project where we predict the colleges for students based on their marks
+          using a machine learning model. The model is trained on various NIT and IIT college data, and their admission
+          procedures
+          </p>
+          <div
+            class="inline-block bg-neutral-800/80 rounded-lg px-4 py-2 backdrop-blur-sm hover:scale-105 transition-transform duration-300"
+            id="el-7guc63dd">
+            <span class="text-purple-400 font-medium" id="el-slhkj89m">Posted on January 2, 2025 at 1:44 PM</span>
+          </div>
+  
+          <div class="flex flex-wrap gap-4" id="el-0nsvnczc">
+            <button
+              class="group bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 hover:-translate-y-0.5"
+              id="el-lp67fdlv">
+              <span class="flex items-center gap-2" id="el-yuprqhrb">
+                  Contact Now
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-1 transition-transform"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor" id="el-a6zi9i2j">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" id="el-5ge6zthh">
+                  </path>
+                </svg>
+              </span>
+            </button>
+            <button
+              class="relative overflow-hidden border border-purple-400 text-purple-400 px-8 py-3 rounded-full transition-all duration-300 hover:text-white group"
+              id="el-5az3t8y6">
+              <span class="relative z-10" id="el-ma4fepl7">Explore More</span>
+              <div
+                class="absolute inset-0 bg-purple-400 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"
+                id="el-f0qs6mon"></div>
+            </button>
+          </div>
+  
+          <!-- <div class="flex items-center gap-6 text-neutral-400" id="el-8yoi8afk">
+            <div class="flex items-center gap-2 hover:text-purple-400 transition-colors cursor-pointer group"
+              id="el-dizr3d0p">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition-transform"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" id="el-hpegxoas">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  id="el-yg27tcqt"></path>
+              </svg>
+              <span class="font-medium" id="el-l3vpypfs">24.5K</span>
+            </div>
+            <div class="flex items-center gap-2 hover:text-purple-400 transition-colors cursor-pointer group"
+              id="el-4j3qgrg9">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition-transform"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" id="el-f5zwo8oh">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  id="el-dar5misg"></path>
+              </svg>
+              <span class="font-medium" id="el-52zo3h1l">12.3K</span>
+            </div>
+            <div class="flex items-center gap-2 hover:text-purple-400 transition-colors cursor-pointer group"
+              id="el-4nu5ek37">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:scale-110 transition-transform"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" id="el-w6onnq81">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                  id="el-zlnx38b9"></path>
+              </svg>
+              <span class="font-medium" id="el-yjnu2wti">45.8K</span>
+            </div>
+          </div> -->
+        </div>
+  
+        <div class="relative [perspective:1000px] group" id="el-83uxwuut">
+          <div
+            class="aspect-w-1 aspect-h-1 rounded-2xl bg-gradient-to-br from-purple-900/40 to-purple-600/20 backdrop-blur-xl p-8 shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 group-hover:scale-[1.02] group-hover:-rotate-2"
+            id="el-dbjvjcf6">
+            <div
+              class="absolute -top-4 -right-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg transform hover:scale-105 transition-transform"
+              id="el-onf7brod">
+             Brain Master
+            </div>
+            <div
+              class="w-full h-full bg-neutral-800/80 backdrop-blur-sm rounded-xl flex items-center justify-center transform transition-transform duration-500 hover:scale-105"
+              id="el-q9jq6y98">
+              <div class="text-8xl animate-float" id="el-o4jipyvl">🧠</div>
+            </div>
+          </div>
+  
+          <div
+            class="absolute -bottom-4 -right-4 bg-neutral-800/90 backdrop-blur-sm rounded-lg p-4 shadow-xl transform hover:scale-105 transition-transform"
+            id="el-1fmfohxz">
+            <div class="flex items-center gap-2" id="el-07dvbjx6">
+              <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse" id="el-dibgy6p9"></div>
+              <span class="text-sm font-medium" id="el-x03zsyzf">Opps:🤯</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <style>
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+  
+        50% {
+          transform: translateY(-20px);
+        }
+  
+        100% {
+          transform: translateY(0px);
+        }
+      }
+  
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+    </style>
+  </section>
+  <!-- Content -->
+  <!-- <section id="hero" class="bg-neutral-900 min-h-screen flex items-center relative overflow-hidden">
+    <div class="absolute inset-0">
+
+      <!-- <div id="particles" class="absolute inset-0">
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1926.52px; top: 14070.7px; opacity: 0.019054;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6706.82px; top: 1371.83px; opacity: 0.0952767;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 10509.6px; top: 6352.72px; opacity: 0.0929747;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -8954.89px; top: -627.929px; opacity: 0.121049;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4803.24px; top: -946.883px; opacity: 0.0202681;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5423.38px; top: -4840.66px; opacity: 0.147734;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1026.04px; top: -6919.05px; opacity: 0.18035;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2678.77px; top: 2138.06px; opacity: 0.117316;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -6743.81px; top: -7184.85px; opacity: 0.138752;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2961.36px; top: 4455.57px; opacity: 0.185321;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6228.7px; top: 1655.89px; opacity: 0.266029;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 59.347px; top: -3179.97px; opacity: 0.0639594;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1805.03px; top: 6905.57px; opacity: 0.188986;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2480.39px; top: 3169.12px; opacity: 0.239896;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -245.455px; top: 3617.84px; opacity: 0.0207625;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -50.462px; top: 8753.55px; opacity: 0.228285;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2709.73px; top: 5611.17px; opacity: 0.114458;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7773.97px; top: 2717.22px; opacity: 0.275923;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2011.76px; top: -1678.19px; opacity: 0.249293;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8857.87px; top: 377.074px; opacity: 0.256923;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4806.57px; top: -2362px; opacity: 0.314731;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -6663.45px; top: -208.504px; opacity: 0.270968;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4895.25px; top: -865.274px; opacity: 0.238038;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1335.78px; top: 6879.33px; opacity: 0.291808;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5640.18px; top: -2959.74px; opacity: 0.327573;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7779.65px; top: -4144.69px; opacity: 0.0628658;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3128.1px; top: -3758.62px; opacity: 0.10318;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4769.96px; top: -428.296px; opacity: 0.228835;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4552.32px; top: -5106.75px; opacity: 0.0888099;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3686.35px; top: 4090.09px; opacity: 0.281892;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5328.89px; top: 2374.9px; opacity: 0.127188;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3290.38px; top: 7276.04px; opacity: 0.109995;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7457.7px; top: -5008.19px; opacity: 0.309336;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3341.91px; top: -3352.14px; opacity: 0.297251;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2509.39px; top: -2866.37px; opacity: 0.236666;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -992.113px; top: 4570.88px; opacity: 0.178781;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1600.29px; top: -5400.08px; opacity: 0.266852;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2990.83px; top: -6681.62px; opacity: 0.0317929;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4473.38px; top: 3159.3px; opacity: 0.262009;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1438.58px; top: -3517.38px; opacity: 0.063572;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1722.68px; top: -5232.15px; opacity: 0.14675;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6634.53px; top: -130.772px; opacity: 0.203533;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7600.64px; top: 2044.71px; opacity: 0.0705495;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5313.45px; top: -2184.8px; opacity: 0.344308;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6845.78px; top: -4033.99px; opacity: 0.364762;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2535.91px; top: -3230.38px; opacity: 0.36709;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 9514.47px; top: 3671.67px; opacity: 0.130307;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4580.81px; top: 18.5017px; opacity: 0.375192;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3199.64px; top: 1781.62px; opacity: 0.289338;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7761.33px; top: -1739.65px; opacity: 0.373432;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -5384.55px; top: 3327.92px; opacity: 0.118251;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 226.272px; top: 3878.24px; opacity: 0.193777;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3412.27px; top: 3073.03px; opacity: 0.170079;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3643.23px; top: 3778.6px; opacity: 0.0981672;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8570.63px; top: -1866.59px; opacity: 0.0989171;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 595.59px; top: 8321.79px; opacity: 0.324955;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -6278.73px; top: -1181.28px; opacity: 0.345767;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 350.936px; top: 4294.57px; opacity: 0.256702;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8244.66px; top: 1948.4px; opacity: 0.283301;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -5063.6px; top: -6720.92px; opacity: 0.0850264;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7517.07px; top: 3437.33px; opacity: 0.198331;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6016.52px; top: -5216px; opacity: 0.27256;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -7573.07px; top: -2992.69px; opacity: 0.222905;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2880.94px; top: 7166.89px; opacity: 0.259804;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5623.26px; top: 688.386px; opacity: 0.284471;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -979.099px; top: -2840.44px; opacity: 0.01178;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2400.69px; top: -3622.52px; opacity: 0.37734;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2783.02px; top: 3877.06px; opacity: 0.246726;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2444.09px; top: 1835.88px; opacity: 0.284791;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3981.72px; top: -5691.47px; opacity: 0.00421682;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5363.11px; top: -3479.37px; opacity: 0.0851497;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3105.14px; top: 1034.62px; opacity: 0.214618;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -5962.2px; top: 5446.13px; opacity: 0.237238;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3242.45px; top: -3355.51px; opacity: 0.271757;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1001.14px; top: 6566.08px; opacity: 0.249845;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2467.12px; top: -459.87px; opacity: 0.367339;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1406.58px; top: -7551.84px; opacity: 0.340274;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -202.743px; top: -3179.7px; opacity: 0.165881;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -874.609px; top: 6444.37px; opacity: 0.29337;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2771.04px; top: 4668.09px; opacity: 0.365335;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1174.73px; top: 3416.97px; opacity: 0.235564;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5954.48px; top: 6347.66px; opacity: 0.202765;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4845.11px; top: 4748.39px; opacity: 0.29851;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3759.33px; top: -2408.69px; opacity: 0.345998;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8812.87px; top: 3581.34px; opacity: 0.334915;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -6166.83px; top: 2102.62px; opacity: 0.367008;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1812.95px; top: -4486.13px; opacity: 0.168945;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2119.51px; top: -4159.92px; opacity: 0.191186;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2812.02px; top: -3104.34px; opacity: 0.367295;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1700.29px; top: 6243.81px; opacity: 0.366486;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 674.242px; top: 3393.04px; opacity: 0.227974;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8756.43px; top: 2284.28px; opacity: 0.270883;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2894.7px; top: 5432.04px; opacity: 0.332192;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8803.5px; top: 455.155px; opacity: 0.308074;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1135.26px; top: -4913.39px; opacity: 0.121509;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3485.05px; top: -2808.79px; opacity: 0.277996;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4888.07px; top: -6938.95px; opacity: 0.255112;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 9017.99px; top: -1956.1px; opacity: 0.348243;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1855.35px; top: 1739.05px; opacity: 0.328078;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 9868.45px; top: 933.176px; opacity: 0.0886466;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3092.16px; top: 5732.47px; opacity: 0.236962;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -18.8087px; top: -3469px; opacity: 0.173067;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -6862.34px; top: -3954.36px; opacity: 0.299938;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6536.31px; top: -1996.5px; opacity: 0.35789;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -5388.79px; top: -6438.19px; opacity: 0.113195;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6219.1px; top: -575.15px; opacity: 0.201733;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3720.87px; top: -892.906px; opacity: 0.241196;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4420.73px; top: 1083.49px; opacity: 0.104375;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8487.34px; top: -2163.13px; opacity: 0.323941;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 8085.47px; top: 1318.78px; opacity: 0.14067;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 591.359px; top: -6184.71px; opacity: 0.38689;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7809.5px; top: -1179.45px; opacity: 0.10917;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -839.309px; top: -8066.12px; opacity: 0.382144;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2252.99px; top: 2237.46px; opacity: 0.171302;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6462.1px; top: 865.599px; opacity: 0.239759;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4040.36px; top: -4032px; opacity: 0.405273;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3818.35px; top: 5363.78px; opacity: 0.176941;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4384.24px; top: -4776.24px; opacity: 0.288998;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3650.74px; top: 4488.57px; opacity: 0.229844;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1771.58px; top: -6544.61px; opacity: 0.171677;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5702.13px; top: 3383.32px; opacity: 0.363867;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6253.62px; top: 2170.58px; opacity: 0.342061;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2116.75px; top: -7165.67px; opacity: 0.367436;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -4892.48px; top: -818.785px; opacity: 0.191061;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2365.53px; top: 176.962px; opacity: 0.175839;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2444.05px; top: 595.4px; opacity: 0.342039;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -155.232px; top: -5317.86px; opacity: 0.363183;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3406.78px; top: -848.208px; opacity: 0.274629;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 6805.65px; top: -958.852px; opacity: 0.191095;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1931.64px; top: -4186.41px; opacity: 0.259701;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1802.4px; top: 4096.88px; opacity: 0.254219;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2323.09px; top: -2876.34px; opacity: 0.467793;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2310.51px; top: -1311.79px; opacity: 0.503369;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1996.6px; top: 2486.58px; opacity: 0.337898;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -69.0319px; top: 2926.86px; opacity: 0.485368;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2116.01px; top: -949.826px; opacity: 0.377397;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 7286.14px; top: 1000.43px; opacity: 0.26555;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5976.17px; top: 1899.93px; opacity: 0.526388;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 963.337px; top: 3787.11px; opacity: 0.523842;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3473.77px; top: 2929.04px; opacity: 0.486113;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3271.17px; top: 2055.89px; opacity: 0.380012;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3982.04px; top: -1327.57px; opacity: 0.471607;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4261.83px; top: 1739.4px; opacity: 0.496412;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5884.12px; top: -795.683px; opacity: 0.372243;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1678.48px; top: 913.839px; opacity: 0.455111;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3429.2px; top: -2448.4px; opacity: 0.334013;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1381.51px; top: -2046.12px; opacity: 0.467072;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 655.893px; top: 5738.17px; opacity: 0.440819;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3647.21px; top: 267.277px; opacity: 0.512431;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1913.62px; top: -503.938px; opacity: 0.536355;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3319.46px; top: 2261.56px; opacity: 0.595923;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2812.73px; top: 3664.28px; opacity: 0.570888;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2667.96px; top: -1226.09px; opacity: 0.376293;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1049.32px; top: 2207.05px; opacity: 0.584117;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2234.87px; top: 4961.56px; opacity: 0.461294;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4755.29px; top: -671.761px; opacity: 0.42177;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -387.514px; top: 1196.94px; opacity: 0.482448;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 236.329px; top: -4296.02px; opacity: 0.59831;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2289.42px; top: -2934.79px; opacity: 0.543254;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -786.56px; top: 2494.29px; opacity: 0.617254;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -631.944px; top: -4185.41px; opacity: 0.555209;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4240.73px; top: 1554.03px; opacity: 0.647779;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 5356.34px; top: 995.813px; opacity: 0.651788;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1899px; top: -2679.73px; opacity: 0.614553;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1900.53px; top: 4816.1px; opacity: 0.589963;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1816.41px; top: -2808.73px; opacity: 0.481134;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4500.06px; top: -2401.11px; opacity: 0.589495;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1802.81px; top: -789px; opacity: 0.496781;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 335.313px; top: 2885.85px; opacity: 0.503691;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 4989.13px; top: 1114.53px; opacity: 0.566448;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1979.14px; top: -1454.68px; opacity: 0.659812;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -2386.61px; top: 844.296px; opacity: 0.7051;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -3025.62px; top: 1672.17px; opacity: 0.675079;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -339.028px; top: -3282.39px; opacity: 0.632845;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1979.52px; top: -1394.13px; opacity: 0.642089;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -967.092px; top: -583.286px; opacity: 0.622818;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -468.935px; top: 1322.22px; opacity: 0.720959;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -503.842px; top: 1395.91px; opacity: 0.652647;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -118.683px; top: -2313.49px; opacity: 0.728484;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1658.84px; top: 895.05px; opacity: 0.593809;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3377.86px; top: -1945.61px; opacity: 0.717554;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1811.07px; top: 2607.71px; opacity: 0.643359;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2914.31px; top: 2927.55px; opacity: 0.759498;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -690.695px; top: 2981.46px; opacity: 0.620736;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1649.73px; top: 3040.61px; opacity: 0.693116;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 779.942px; top: -761.67px; opacity: 0.709431;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2771.88px; top: -1403.55px; opacity: 0.734541;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -141.958px; top: -1097.79px; opacity: 0.769765;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1281.28px; top: -2405.11px; opacity: 0.657432;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -972.23px; top: -229.385px; opacity: 0.669709;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3646.68px; top: -2184.54px; opacity: 0.770794;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1555.38px; top: 1554.53px; opacity: 0.683721;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1555.86px; top: 2860.23px; opacity: 0.68639;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1137.02px; top: 1362.25px; opacity: 0.746826;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -424.159px; top: 680.579px; opacity: 0.691229;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3149.63px; top: -1278.01px; opacity: 0.683581;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1553.74px; top: 2042.57px; opacity: 0.700435;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -902.21px; top: -1790.18px; opacity: 0.780691;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1383.61px; top: 2828.39px; opacity: 0.779738;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2386.36px; top: -2004.58px; opacity: 0.76919;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1678.88px; top: -477.835px; opacity: 0.793459;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 598.668px; top: 1291.44px; opacity: 0.818122;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2255.74px; top: 2180.95px; opacity: 0.725842;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -200.514px; top: 320.726px; opacity: 0.769606;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1231.28px; top: -1525.5px; opacity: 0.806077;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1468.81px; top: 1801.11px; opacity: 0.784376;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1171.08px; top: 189.561px; opacity: 0.742597;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1382.24px; top: 836.035px; opacity: 0.805912;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1029.72px; top: 1025.68px; opacity: 0.777628;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 858.996px; top: -519.041px; opacity: 0.757608;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2250.15px; top: 829.551px; opacity: 0.793124;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1227.73px; top: 328.982px; opacity: 0.734305;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1377.6px; top: -895.408px; opacity: 0.752085;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 271.511px; top: -1492.12px; opacity: 0.796923;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1030.77px; top: -1504.85px; opacity: 0.758957;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 654.698px; top: -782.376px; opacity: 0.754596;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 418.715px; top: -1113.57px; opacity: 0.753064;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 622.616px; top: -2095.14px; opacity: 0.810277;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2281.89px; top: 1202.78px; opacity: 0.800766;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1569.71px; top: 925.643px; opacity: 0.722138;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2429.42px; top: -1141.53px; opacity: 0.824797;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -543.579px; top: 2424.11px; opacity: 0.738263;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1221.15px; top: -971.392px; opacity: 0.751541;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3897.3px; top: 498.138px; opacity: 0.731708;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1081.76px; top: 696.272px; opacity: 0.830257;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -430.468px; top: 1242.52px; opacity: 0.809674;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 219.441px; top: 603.296px; opacity: 0.767099;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3882.25px; top: 484.29px; opacity: 0.814977;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 612.212px; top: 1617.27px; opacity: 0.824104;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1302.09px; top: -808.591px; opacity: 0.809742;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1527.06px; top: -186.752px; opacity: 0.729784;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3217.97px; top: 1102.3px; opacity: 0.761036;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1633.66px; top: 2283.41px; opacity: 0.798741;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1164.73px; top: -1407.17px; opacity: 0.759552;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1231.52px; top: -831.183px; opacity: 0.823553;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2253.29px; top: 252.524px; opacity: 0.788629;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 3114.92px; top: -437.073px; opacity: 0.733371;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -503.212px; top: 119.289px; opacity: 0.823134;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1036.96px; top: 2546.32px; opacity: 0.813633;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1597.16px; top: -1869.77px; opacity: 0.831717;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1801.86px; top: 88.6165px; opacity: 0.83344;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -1247.02px; top: 251.921px; opacity: 0.842643;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1355.63px; top: -800.713px; opacity: 0.791234;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1257.4px; top: -143.814px; opacity: 0.788176;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2018.89px; top: 1906.71px; opacity: 0.844032;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1071.1px; top: -891.331px; opacity: 0.847;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1940.26px; top: 1724.44px; opacity: 0.849632;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1214.07px; top: 1233.38px; opacity: 0.806789;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1857.81px; top: 1291px; opacity: 0.866543;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -752.343px; top: 148.338px; opacity: 0.800247;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1665.92px; top: 313.724px; opacity: 0.882546;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -674.45px; top: -196.116px; opacity: 0.872877;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 2038.75px; top: 18.4381px; opacity: 0.880356;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1695.87px; top: -263.162px; opacity: 0.895044;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -357.896px; top: -43.9705px; opacity: 0.883076;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1787.88px; top: 1102.76px; opacity: 0.891221;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 905.794px; top: 1188.64px; opacity: 0.906562;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 818.827px; top: -355.538px; opacity: 0.882239;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -647.952px; top: -153.024px; opacity: 0.899044;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1259.55px; top: -200.204px; opacity: 0.914514;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 516.778px; top: 565.537px; opacity: 0.927388;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1651.34px; top: 406.348px; opacity: 0.915389;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 265.175px; top: 462.202px; opacity: 0.923312;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 760.965px; top: 675.491px; opacity: 0.924019;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: -141.124px; top: -133.198px; opacity: 0.936095;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 278.852px; top: -40.5466px; opacity: 0.939231;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 95.3152px; top: -172.707px; opacity: 0.950417;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 905.133px; top: 368.938px; opacity: 0.959396;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1180.48px; top: 624.566px; opacity: 0.971942;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1373.62px; top: 223.959px; opacity: 0.975967;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1165.21px; top: -8.20755px; opacity: 0.976328;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 786.988px; top: 330.107px; opacity: 0.984135;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 822.258px; top: 430.906px; opacity: 0.993438;"></div>
+        <div class="absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full"
+          style="left: 1259.51px; top: 222.122px;"></div>
+      </div> -->
+    <!-- </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center">
+        <h1 class="text-4xl sm:text-6xl font-bold text-white mb-6 animate__animated animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          Find Your Perfect College
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 animate__animated animate__fadeIn animate__delay-1s"
+          style="opacity: 1; transform: translateY(0px);">
+          Explore comprehensive college rankings, comparisons, and resources to make an informed decision about your
+          future.
+        </p>
+        <div class="flex justify-center space-x-4 animate__animated animate__fadeIn animate__delay-2s"
+          style="opacity: 1; transform: translateY(0px);">
+          <a href="#search"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+            Start Search
+          </a>
+          <a href="#rankings"
+            class="bg-neutral-700 hover:bg-neutral-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+            View Rankings
+          </a>
+        </div>
+      </div>
+    </div> -->
+  <!-- </section>  -->
+
+<!-- <div id="vanta-bg" class="sm:h-[50%]"></div> -->
+
+  <!-- <section id="search" class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-neutral-800 mb-4 animate__animated animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          Find Your Dream College
+        </h2>
+        <p class="text-lg text-neutral-600 animate__animated animate__fadeIn animate__delay-1s"
+          style="opacity: 1; transform: translateY(0px);">
+          Search through thousands of colleges using our advanced filters
+        </p>
+      </div> -->
+
+      <!-- <div
+        class="bg-white rounded-lg shadow-xl p-6 max-w-4xl mx-auto animate__animated animate__fadeInUp animate__fadeIn"
+        style="opacity: 1; transform: translateY(0px);">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          <div class="relative">
+            <input type="text" placeholder="College Name"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          </div>
+          <div class="relative">
+            <select
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Select Location</option>
+              <option value="northeast">Northeast</option>
+              <option value="midwest">Midwest</option>
+              <option value="south">South</option>
+              <option value="west">West</option>
+            </select>
+          </div>
+          <div class="relative">
+            <select
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Select Major</option>
+              <option value="cs">Computer Science</option>
+              <option value="engineering">Engineering</option>
+              <option value="business">Business</option>
+              <option value="arts">Arts</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div class="relative">
+            <select
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Tuition Range</option>
+              <option value="0-10000">$0 - $10,000</option>
+              <option value="10001-20000">$10,001 - $20,000</option>
+              <option value="20001-30000">$20,001 - $30,000</option>
+              <option value="30001+">$30,001+</option>
+            </select>
+          </div>
+          <div class="relative">
+            <select
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Campus Size</option>
+              <option value="small">Small (&lt;5,000)</option>
+              <option value="medium">Medium (5,000-15,000)</option>
+              <option value="large">Large (&gt;15,000)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-center mt-6">
+          <button
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+            Search Colleges
+          </button>
+        </div>
+      </div> -->
+
+      <!-- <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 animate__animated animate__fadeIn animate__delay-1s"
+        style="opacity: 1; transform: translateY(0px);">
+        <div class="bg-neutral-50 p-4 rounded-lg text-center">
+          <div class="text-3xl font-bold text-blue-600 mb-2">5000+</div>
+          <div class="text-neutral-600">Colleges Listed</div>
+        </div>
+        <div class="bg-neutral-50 p-4 rounded-lg text-center">
+          <div class="text-3xl font-bold text-blue-600 mb-2">250+</div>
+          <div class="text-neutral-600">Majors Available</div>
+        </div>
+        <div class="bg-neutral-50 p-4 rounded-lg text-center">
+          <div class="text-3xl font-bold text-blue-600 mb-2">50</div>
+          <div class="text-neutral-600">States Covered</div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <section id="coursePredictor" class="min-h-screen bg-gray-50 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-2xl font-bold text-gray-900">Course Predictor</h1>
+        <p class="mt-2 text-gray-600">Enter your academic details to get personalized course recommendations</p>
+      </div>
+  
+      <!-- Main Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Input Form -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-lg border border-gray-200 p-6">
+            <form class="space-y-6">
+              <!-- Academic Details -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-900">Academic Details</h3>
+  
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">12th Percentage</label>
+                    <input type="number"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">JEE Main Rank</label>
+                    <input type="number"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                  </div>
+                </div>
+  
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">JEE Advanced Rank</label>
+                    <input type="number"
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Category</label>
+                    <select
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                      <option>General</option>
+                      <option>OBC</option>
+                      <option>SC</option>
+                      <option>ST</option>
+                      <option>EWS</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Preferences -->
+              <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-900">Preferences</h3>
+  
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Preferred Branch</label>
+                    <select
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                      <option>Computer Science</option>
+                      <option>Electronics</option>
+                      <option>Mechanical</option>
+                      <option>Civil</option>
+                      <option>Chemical</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700">Preferred Location</label>
+                    <select
+                      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                      <option>Any</option>
+                      <option>North India</option>
+                      <option>South India</option>
+                      <option>East India</option>
+                      <option>West India</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+  
+              <button type="submit"
+                class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors font-medium">
+                Predict Courses
+              </button>
+            </form>
+          </div>
+        </div>
+  
+        <!-- Results Preview -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-lg border border-gray-200 p-6 space-y-6">
+            <h3 class="text-lg font-medium text-gray-900">Your Chances</h3>
+  
+            <div class="space-y-4">
+              <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-medium text-gray-900">IIT Bombay - CSE</span>
+                  <span class="text-sm font-medium text-green-600">85%</span>
+                </div>
+                <div class="w-full bg-green-200 rounded-full h-2">
+                  <div class="bg-green-600 h-2 rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+  
+              <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-medium text-gray-900">IIT Delhi - CSE</span>
+                  <span class="text-sm font-medium text-yellow-600">65%</span>
+                </div>
+                <div class="w-full bg-yellow-200 rounded-full h-2">
+                  <div class="bg-yellow-600 h-2 rounded-full" style="width: 65%"></div>
+                </div>
+              </div>
+  
+              <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-medium text-gray-900">IIT Madras - CSE</span>
+                  <span class="text-sm font-medium text-red-600">45%</span>
+                </div>
+                <div class="w-full bg-red-200 rounded-full h-2">
+                  <div class="bg-red-600 h-2 rounded-full" style="width: 45%"></div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="pt-4 border-t border-gray-200">
+              <h4 class="text-sm font-medium text-gray-900 mb-3">Tips to Improve Chances</h4>
+              <ul class="space-y-2">
+                <li class="flex items-center text-sm text-gray-600">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Consider backup options in Tier 2 colleges
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Explore similar branches in top IITs
+                </li>
+                <li class="flex items-center text-sm text-gray-600">
+                  <svg class="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Consider NITs and IIITs as alternatives
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="resources" class="bg-neutral-900 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-4 animate__animated animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          Student Resources
+        </h2>
+        <p class="text-lg text-gray-300 animate__animated animate__fadeIn animate__delay-1s"
+          style="opacity: 1; transform: translateY(0px);">
+          Everything you need for your college journey
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Admission Guides -->
+        <div
+          class="bg-neutral-800 rounded-xl p-6 hover:transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="text-blue-400 mb-4">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Admission Guides</h3>
+          <p class="text-gray-400 mb-4">Comprehensive guides on application process, essays, and interviews</p>
+          <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+            Learn More
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Financial Aid -->
+        <div
+          class="bg-neutral-800 rounded-xl p-6 hover:transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp animate__delay-1s animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="text-green-400 mb-4">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Financial Aid</h3>
+          <p class="text-gray-400 mb-4">Scholarships, grants, and student loan information</p>
+          <a href="#" class="text-green-400 hover:text-green-300 flex items-center">
+            Learn More
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Test Prep -->
+        <div
+          class="bg-neutral-800 rounded-xl p-6 hover:transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp animate__delay-2s animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="text-purple-400 mb-4">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Test Prep</h3>
+          <p class="text-gray-400 mb-4">SAT, ACT, and other standardized test preparation resources</p>
+          <a href="#" class="text-purple-400 hover:text-purple-300 flex items-center">
+            Learn More
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Career Planning -->
+        <div
+          class="bg-neutral-800 rounded-xl p-6 hover:transform hover:scale-105 transition duration-300 animate__animated animate__fadeInUp animate__delay-3s animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="text-red-400 mb-4">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Career Planning</h3>
+          <p class="text-gray-400 mb-4">Major selection and career path guidance resources</p>
+          <a href="#" class="text-red-400 hover:text-red-300 flex items-center">
+            Learn More
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Featured Resource -->
+      <div class="mt-16 bg-neutral-800 rounded-xl p-8 animate__animated animate__fadeIn animate__delay-4s"
+        style="opacity: 1; transform: translateY(0px);">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          <div class="mb-6 md:mb-0 md:mr-8">
+            <h3 class="text-2xl font-bold text-white mb-4">Free College Planning Workshop</h3>
+            <p class="text-gray-300 mb-6">Join our expert counselors for a comprehensive workshop on college planning
+              strategies.</p>
+            <button
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+              Register Now
+            </button>
+          </div>
+          <div class="flex space-x-4">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-400 mb-2">50+</div>
+              <div class="text-gray-400">Topics Covered</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-400 mb-2">2hrs</div>
+              <div class="text-gray-400">Live Session</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-blue-400 mb-2">100%</div>
+              <div class="text-gray-400">Free Access</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="comparison" class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-neutral-800 mb-4 animate__animated animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          Compare Colleges
+        </h2>
+        <p class="text-lg text-neutral-600 animate__animated animate__fadeIn animate__delay-1s"
+          style="opacity: 1; transform: translateY(0px);">
+          Make informed decisions by comparing colleges side by side
+        </p>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-6 animate__animated animate__fadeInUp animate__fadeIn"
+        style="opacity: 1; transform: translateY(0px);">
+        <!-- Comparison Tool -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="col-span-1">
+            <label class="block text-sm font-medium text-neutral-700 mb-2">Select First College</label>
+            <select
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Choose a college...</option>
+              <option value="harvard">Harvard University</option>
+              <option value="stanford">Stanford University</option>
+              <option value="mit">MIT</option>
+            </select>
+          </div>
+          <div class="col-span-1 flex items-center justify-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="col-span-1">
+            <label class="block text-sm font-medium text-neutral-700 mb-2">Select Second College</label>
+            <select
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Choose a college...</option>
+              <option value="yale">Yale University</option>
+              <option value="princeton">Princeton University</option>
+              <option value="caltech">Caltech</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-neutral-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-neutral-600">Criteria</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-blue-600">College A</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-green-600">College B</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <tr>
+                <td class="px-6 py-4 text-sm text-neutral-600">Acceptance Rate</td>
+                <td class="px-6 py-4 text-center text-sm text-blue-600">5%</td>
+                <td class="px-6 py-4 text-center text-sm text-green-600">7%</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 text-sm text-neutral-600">Average SAT Score</td>
+                <td class="px-6 py-4 text-center text-sm text-blue-600">1540</td>
+                <td class="px-6 py-4 text-center text-sm text-green-600">1520</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 text-sm text-neutral-600">Tuition (Annual)</td>
+                <td class="px-6 py-4 text-center text-sm text-blue-600">$54,000</td>
+                <td class="px-6 py-4 text-center text-sm text-green-600">$52,000</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 text-sm text-neutral-600">Student-Faculty Ratio</td>
+                <td class="px-6 py-4 text-center text-sm text-blue-600">6:1</td>
+                <td class="px-6 py-4 text-center text-sm text-green-600">7:1</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 text-sm text-neutral-600">Graduation Rate</td>
+                <td class="px-6 py-4 text-center text-sm text-blue-600">98%</td>
+                <td class="px-6 py-4 text-center text-sm text-green-600">96%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 flex justify-center space-x-4">
+          <button
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+            Compare Now
+          </button>
+          <button
+            class="bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold py-3 px-8 rounded-lg transition duration-300">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Additional Features -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div class="bg-neutral-50 p-6 rounded-xl animate__animated animate__fadeInUp animate__delay-1s animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="text-blue-600 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Detailed Statistics</h3>
+          <p class="text-neutral-600">Compare detailed statistics and metrics between institutions</p>
+        </div>
+
+        <div class="bg-neutral-50 p-6 rounded-xl animate__animated animate__fadeInUp animate__delay-2s animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="text-green-600 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Visual Comparisons</h3>
+          <p class="text-neutral-600">View side-by-side visual comparisons of key metrics</p>
+        </div>
+
+        <div class="bg-neutral-50 p-6 rounded-xl animate__animated animate__fadeInUp animate__delay-3s animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="text-purple-600 mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Save Comparisons</h3>
+          <p class="text-neutral-600">Save and revisit your college comparisons anytime</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="contact" class="bg-neutral-900 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-4 animate__animated animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          Get in Touch
+        </h2>
+        <p class="text-lg text-gray-300 animate__animated animate__fadeIn animate__delay-1s"
+          style="opacity: 1; transform: translateY(0px);">
+          Have questions? We're here to help with your college journey
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Information -->
+        <div class="space-y-8 animate__animated animate__fadeInLeft animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <div class="bg-neutral-800 p-6 rounded-xl">
+            <div class="flex items-center space-x-4">
+              <div class="bg-blue-500/10 p-3 rounded-lg">
+                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                  </path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold">Email Us</h3>
+                <p class="text-gray-300">support@collegeranking.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-neutral-800 p-6 rounded-xl">
+            <div class="flex items-center space-x-4">
+              <div class="bg-green-500/10 p-3 rounded-lg">
+                <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                  </path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold">Call Us</h3>
+                <p class="text-gray-300">+1 (888) 123-4567</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-neutral-800 p-6 rounded-xl">
+            <div class="flex items-center space-x-4">
+              <div class="bg-purple-500/10 p-3 rounded-lg">
+                <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-white font-semibold">Location</h3>
+                <p class="text-gray-300">123 Education Ave, Academic City, AC 12345</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-neutral-800 p-8 rounded-xl animate__animated animate__fadeInRight animate__fadeIn"
+          style="opacity: 1; transform: translateY(0px);">
+          <form class="space-y-6" id="contactForm">
+            <div>
+              <label class="block text-white mb-2" for="name">Full Name</label>
+              <input type="text" id="name" name="name"
+                class="w-full px-4 py-3 bg-neutral-700 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                placeholder="Enter your name">
+            </div>
+
+            <div>
+              <label class="block text-white mb-2" for="email">Email Address</label>
+              <input type="email" id="email" name="email"
+                class="w-full px-4 py-3 bg-neutral-700 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                placeholder="Enter your email">
+            </div>
+
+            <div>
+              <label class="block text-white mb-2" for="subject">Subject</label>
+              <select id="subject" name="subject"
+                class="w-full px-4 py-3 bg-neutral-700 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white">
+                <option value="">Select a subject</option>
+                <option value="admissions">Admissions</option>
+                <option value="rankings">Rankings</option>
+                <option value="financial-aid">Financial Aid</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-white mb-2" for="message">Message</label>
+              <textarea id="message" name="message" rows="4"
+                class="w-full px-4 py-3 bg-neutral-700 border border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                placeholder="Enter your message"></textarea>
+            </div>
+
+            <button type="submit"
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer" class="bg-neutral-900 pt-20 pb-10 relative overflow-hidden">
+    <!-- Gradient Background Effect -->
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent pointer-events-none"
+      id="el-hfxx2sbg"></div>
+  
+    <!-- Animated Background Dots -->
+    <div class="absolute inset-0 opacity-10" id="el-8i0sj72i">
+      <div class="absolute w-40 h-40 bg-purple-500 rounded-full -top-20 -left-20 blur-3xl animate-pulse" id="el-9coxyes8">
+      </div>
+      <div class="absolute w-40 h-40 bg-blue-500 rounded-full -bottom-20 -right-20 blur-3xl animate-pulse delay-1000"
+        id="el-ijmq0wqi"></div>
+    </div>
+  
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" id="el-jjc5b07m">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16" id="el-u5qx8r1a">
+        <!-- Company Info -->
+        <div class="space-y-6 transform hover:scale-105 transition-transform duration-300" id="el-r20whdn5">
+          <h3
+            class="text-3xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-600"
+            id="el-30a42voa">CollegeRanking</h3>
+          <p class="text-neutral-400 leading-relaxed" id="el-1spq5ybu">Revolutionizing the future  integration
+            technology.</p>
+          <div class="flex space-x-4" id="el-qgthai7g">
+            <a href="#" class="text-purple-400 hover:text-purple-300 transition-all duration-300 hover:-translate-y-1"
+              id="el-7nx6mllj">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" id="el-fsvucmi3">
+                <path
+                  d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                  id="el-r7q0slku"></path>
+              </svg>
+            </a>
+            <a href="#" class="text-purple-400 hover:text-purple-300 transition-all duration-300 hover:-translate-y-1"
+              id="el-3wrbhfe4">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" id="el-pjrzyan5">
+                <path fill-rule="evenodd"
+                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                  clip-rule="evenodd" id="el-utu8z5sv"></path>
+              </svg>
+            </a>
+            <a href="#" class="text-purple-400 hover:text-purple-300 transition-all duration-300 hover:-translate-y-1"
+              id="el-o4ab5i2o">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" id="el-rcddmg7y">
+                <path fill-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  clip-rule="evenodd" id="el-d1m1oqta"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+  
+        <!-- Quick Links -->
+        <div class="transform hover:translate-x-2 transition-transform duration-300" id="el-lan8mvbj">
+          <h4 class="text-white font-semibold mb-6 text-lg" id="el-sanwetxd">Quick Links</h4>
+          <ul class="space-y-4 text-neutral-400" id="el-27bo7q0j">
+            <li id="el-e8s6h6dk"><a href="#"
+                class="hover:text-purple-400 transition-colors duration-300 flex items-center" id="el-jh03g8g6"><span
+                  class="mr-2" id="el-m2hv87tv">→</span>About Us</a></li>
+            <li id="el-vyjsdskz"><a href="#"
+                class="hover:text-purple-400 transition-colors duration-300 flex items-center" id="el-yww0c4g9"><span
+                  class="mr-2" id="el-06ncc6zz">→</span>Resource</a></li>
+            <li id="el-938425cb"><a href="#"
+                class="hover:text-purple-400 transition-colors duration-300 flex items-center" id="el-3wmg82c1"><span
+                  class="mr-2" id="el-ciebd0xu">→</span>Rating</a></li>
+            <li id="el-fbice79j"><a href="#"
+                class="hover:text-purple-400 transition-colors duration-300 flex items-center" id="el-gwvxabjw"><span
+                  class="mr-2" id="el-sktgtszx">→</span>Contact</a></li>
+          </ul>
+        </div>
+  
+        <!-- Support -->
+        <div class="transform hover:translate-x-2 transition-transform duration-300" id="el-biz7d13m">
+          <h4 class="text-white font-semibold mb-6 text-lg" id="el-3ppnr2xv">Support</h4>
+          <ul class="space-y-4 text-neutral-400" id="el-0rwa8l4n">
+            <li id="el-8zxpqd1i"><a href="#"
+                class="hover:text-purple-400 transition-colors duration-300 flex items-center" id="el-6ju95fmh"><span
+                  class="mr-2" id="el-33td1spm">→</span>Documentation</a></li>
+            <li id="el-eqgx9kog"><a href="#"
+                class="hover:text-purple-400 transition-colors duration-300 flex items-center" id="el-twgj0v6k"><span
+                  class="mr-2" id="el-kb8fwf9u">→</span>FAQ</a></li>
+            
+          </ul>
+        </div>
+  
+        <!-- Newsletter -->
+        <div class="space-y-6 transform hover:scale-105 transition-transform duration-300" id="el-grmmhgtl">
+          <h4 class="text-white font-semibold text-lg" id="el-wekjd057">Stay Updated</h4>
+          <form class="space-y-4" id="el-j07p5hgf">
+            <div class="relative group" id="el-jb5mwt77">
+              <input type="email" placeholder="Enter your email" class="w-full bg-neutral-800/50 text-white rounded-lg px-4 py-3 
+                                        focus:outline-none focus:ring-2 focus:ring-purple-600 
+                                        transition-all duration-300
+                                        backdrop-blur-sm
+                                        border border-neutral-700/50
+                                        group-hover:border-purple-500/50" id="el-7ts6xojy">
+            </div>
+            <button type="submit"
+              class="w-full bg-gradient-to-r from-purple-600 to-purple-800 
+                                     hover:from-purple-500 hover:to-purple-700 
+                                     text-white py-3 rounded-lg transition-all duration-300 
+                                     transform hover:-translate-y-1 hover:shadow-lg
+                                     focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 focus:ring-offset-neutral-900"
+              id="el-cb1h6rqq">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+  
+      <div class="border-t border-neutral-800 pt-8 mt-8" id="el-7vq2sop7">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0" id="el-mt8akr5m">
+          <div class="text-neutral-400 text-sm" id="el-e9hrdxxb">
+            © 2025 CR. All rights reserved.
+          </div>
+          <div class="flex space-x-6 text-neutral-400 text-sm" id="el-7fwl70u4">
+            <a href="#" class="hover:text-purple-400 transition-colors duration-300" id="el-dnw5g9z0">Privacy Policy</a>
+            <a href="#" class="hover:text-purple-400 transition-colors duration-300" id="el-gmoaq7d1">Terms of Service</a>
+            <a href="#" class="hover:text-purple-400 transition-colors duration-300" id="el-2ij1c0e6">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+  <script>
+        VANTA.BIRDS({
+          el: "#vanta-bg", // Target the div for Vanta.js
+        backgroundColor: 0x0, // Transparent background
+        color1: 0xff6600, // Adjust colors for birds
+        color2: 0xffffff,
+        birdSize: 1.5,
+        wingSpan: 25,
+        separation: 60,
+        alignment: 50,
+        cohesion: 10
+    });
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.animate__animated');
+      elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.style.opacity = "1";
+          element.style.transform = "translateY(0)";
+        }
+      });
+    }
+
+    window.addEventListener('scroll', animateOnScroll);
+  </script>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Particle animation
+    function createParticle() {
+      const particles = document.getElementById('particles');
+      const particle = document.createElement('div');
+      particle.className = 'absolute w-2 h-2 bg-gradient-to-r from-yellow-200 to-pink-200 rounded-full';
+
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+
+      particle.style.left = `${startX}px`;
+      particle.style.top = `${startY}px`;
+
+      particles.appendChild(particle);
+
+      const angle = Math.random() * Math.PI * 2;
+      const velocity = 1 + Math.random() * 2;
+      const lifetime = 3000 + Math.random() * 2000;
+
+      let currentTime = 0;
+
+      function animate() {
+        currentTime += 16;
+        const progress = currentTime / lifetime;
+
+        if (progress >= 1) {
+          particle.remove();
+          return;
+        }
+
+        const x = startX + Math.cos(angle) * velocity * currentTime;
+        const y = startY + Math.sin(angle) * velocity * currentTime;
+
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        particle.style.opacity = 1 - progress;
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createParticle, 100);
+  </script>
+  <script>
+    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('animate__animated', 'animate__fadeInDown');
+      } else {
+        mobileMenu.classList.add('animate__animated', 'animate__fadeOutUp');
+        setTimeout(() => {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.classList.remove('animate__animated', 'animate__fadeOutUp');
+        }, 300);
+      }
+    });
+
+    // Add smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
