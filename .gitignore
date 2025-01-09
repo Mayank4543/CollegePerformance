@@ -54,7 +54,7 @@ coverage.xml
 # Translations
 *.mo
 *.pot
-*.collegeranking.json
+
 # Django stuff:
 *.log
 local_settings.py
