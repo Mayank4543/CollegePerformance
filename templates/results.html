@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recommendations</title>
+</head>
+
+<body>
+    <h1>Predicted Placement Score: {{ predicted_score }}</h1>
+    <h2>Recommended Colleges:</h2>
+    <table border="1">
+        <tr>
+            <th>College Name</th>
+            <th>Placement Score</th>
+            <th>Rating</th>
+            <th>Academic Score</th>
+        </tr>
+        {% for college in recommendations %}
+        <tr>
+            <td>{{ college['College_Name'] }}</td>
+            <td>{{ college['Actual_Placement'] }}</td>
+            <td>{{ college['Rating'] }}</td>
+            <td>{{ college['Academic'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">Back to Home</a>
+</body>
+
+</html>

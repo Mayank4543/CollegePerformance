@@ -1,10 +1,53 @@
 import pickle
-from flask import Flask, request, app, render_template
+from flask import Flask, request, app, render_template,jsonify
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import gspread
+import os
 
 app = Flask(__name__)
+df = pd.read_csv(r'C:\Users\Mayank Rathore\Desktop\College-Predictor-System\College_data_updated.csv')
+df = df.replace('--', np.nan)
+numeric_columns = ['UG_fee', 'PG_fee', 'Rating', 'Academic', 'Faculty', 'Infrastructure', 'Placement']
+for col in numeric_columns:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+df = df.dropna(subset=['Placement'])
+college_names = df['College_Name']
+features = ['Rating', 'Academic', 'Faculty', 'Infrastructure', 'UG_fee', 'PG_fee']
+X = df[features].copy()
+y = df['Placement']
+for column in features:
+    X.loc[:, column] = X[column].fillna(X[column].mean())
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+rf_model.fit(X_train_scaled, y_train)
+def recommend_colleges_flask(rating, academic, faculty, infrastructure, ug_fee, pg_fee, top_n=5):
+    input_data = pd.DataFrame([[rating, academic, faculty, infrastructure, ug_fee, pg_fee]], 
+                               columns=features)
+    input_scaled = scaler.transform(input_data)
+    predicted_placement = rf_model.predict(input_scaled)[0]
+
+    all_colleges_df = pd.DataFrame({
+        'College_Name': college_names,
+        'Rating': df['Rating'],
+        'Academic': df['Academic'],
+        'Faculty': df['Faculty'],
+        'Infrastructure': df['Infrastructure'],
+        'UG_fee': df['UG_fee'],
+        'PG_fee': df['PG_fee'],
+        'Actual_Placement': df['Placement']
+    })
+    recommendations = all_colleges_df.sort_values('Actual_Placement', ascending=False).head(top_n)
+    return predicted_placement, recommendations
 
 # Load the model
 model = pickle.load(open("model1.pkl", "rb"))
@@ -26,8 +69,44 @@ def login():
 
 @app.route('/colleges')
 def colleges():
-    return render_template('Top Colleges.html')     
+    return render_template('Top Colleges.html') 
+@app.route('/recommend-college')
+def rc():
+    return render_template('recommend.html')
 
+@app.route('/recommend', methods=['POST'])
+def recommend():
+    rating = float(request.form['rating'])
+    academic = float(request.form['academic'])
+    faculty = float(request.form['faculty'])
+    infrastructure = float(request.form['infrastructure'])
+    ug_fee = float(request.form['ug_fee'])
+    pg_fee = float(request.form['pg_fee'])
+
+    predicted_score, recommended_colleges = recommend_colleges_flask(rating, academic, faculty, infrastructure, ug_fee, pg_fee)
+    
+    # Convert recommendations to a list of dictionaries for easy rendering
+    recommendations_list = recommended_colleges.to_dict(orient='records')
+
+    return render_template('results.html', predicted_score=predicted_score, recommendations=recommendations_list)
+
+
+@app.route('/feature-importance')
+def feature_importance():
+    importance = rf_model.feature_importances_
+    feat_importance = pd.DataFrame({'Feature': features, 'Importance': importance}).sort_values('Importance', ascending=False)
+
+    # Save the chart as an image
+    plt.figure(figsize=(10, 6))
+    plt.bar(feat_importance['Feature'], feat_importance['Importance'])
+    plt.xticks(rotation=45)
+    plt.title('Feature Importance in Predicting Placement')
+    plt.tight_layout()
+    chart_path = 'static/feature_importance.png'
+    plt.savefig(chart_path)
+    plt.close()
+
+    return render_template('feature_importance.html', chart_path=chart_path)
 @app.route('/learn')
 def learn():
     return render_template('Coding.html')     
