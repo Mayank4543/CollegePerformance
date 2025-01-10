@@ -73,7 +73,7 @@ docs/_build/
 
 # PyBuilder
 target/
-
+https://sheets.googleapis.com
 # Jupyter Notebook
 .ipynb_checkpoints
 

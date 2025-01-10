@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Object Manipulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .todo-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .todo-container input {
+            width: calc(100% - 50px);
+            padding: 10px;
+            margin: 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .todo-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 5px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .todo-container button:hover {
+            background-color: #45a049;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+        }
+
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .todo-item button {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .todo-item button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Dynamic To-Do List</h1>
+    <div class="todo-container">
+        <input type="text" id="todoInput" placeholder="Enter a new task">
+        <button id="addBtn">Add</button>
+        <ul class="todo-list" id="todoList"></ul>
+    </div>
+
+    <script>
+        // Get references to elements
+        const todoInput = document.getElementById('todoInput');
+        const addBtn = document.getElementById('addBtn');
+        const todoList = document.getElementById('todoList');
+
+        // Add a new task
+        addBtn.addEventListener('click', function () {
+            const task = todoInput.value.trim(); 
+            if (task) {
+               
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+
+                
+                const textSpan = document.createElement('span');
+                textSpan.textContent = task;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', function () {
+                    todoList.removeChild(li); // Remove the list item
+                });
+
+               
+                li.appendChild(textSpan);
+                li.appendChild(deleteBtn);
+
+                todoList.appendChild(li);
+
+                // Clear the input field
+                todoInput.value = '';
+                todoInput.focus();
+            } else {
+                alert('Please enter a task!');
+            }
+        });
+
+        todoInput.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                addBtn.click();
+            }
+        });
+    </script>
+</body>
+
+</html>
