@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script> <!-- GSAP library -->
+
+  <style>
+    #vanta-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      /* overflow-x: hidden; */
+
+    }
+
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Animation styles for text */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subtitle {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1.8s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        gap: 2;
+        align-items: center;
+      }
+
+      nav ul li {
+        padding: 0.5rem 0;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+      }
+
+      p.subtitle {
+        font-size: 1rem;
+        text-align: center;
+        padding: 0 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      p.subtitle {
+        font-size: 0.9rem;
+        padding: 0 0.5rem;
+      }
+    }
+    
+  </style>
+</head>
+
+<body class="h-screen text-white">
+
+  <nav class="flex justify-between items-center p-4 bg-transparent fixed top-0 left-0 w-full z-10 backdrop-blur-md">
+    <h1 class="text-xl font-bold">CollegeRanking</h1>
+    <button id="menu-btn" class="text-2xl md:hidden focus:outline-none">
+      &#9776;
+    </button>
+    <!-- Links -->
+    <ul id="menu" class="hidden md:flex gap-4">
+      <li><a href="/" class="hover:text-gray-300">Home</a></li>
+      <li><a href="/about" class="hover:text-gray-300">About</a></li>
+      <li><a href="/contact" class="hover:text-gray-300">Contact</a></li>
+      <li><a href="/login" class="hover:text-gray-300">Login</a></li>
+    </ul>
+  </nav>
+  <!-- Content -->
+  <main class="flex flex-col items-center justify-center h-screen text-center px-4 ">
+    <h2 class="text-4xl md:text-5xl font-bold fade-in text-center">Welcome to My Website</h2>
+    <p class="mt-4 text-lg md:text-xl text-gray-200 subtitle">Explore the magic of Vanta.js with a transparent navbar!
+    </p>
+  </main>
+ 
+  <div class="container"></div>
+
+  <section class="flex flex-col items-center justify-center h-screen bg-gray-900 text-center text-white px-4">
+    <h1 class="text-5xl font-bold mb-4">Find Your Dream College</h1>
+    <p class="text-lg mb-6">Explore the best colleges in your budget with accurate recommendations!</p>
+    <button class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg">Get Started</button>
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-8">Our Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 bg-gray-100 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold mb-4">College Recommendations</h3>
+          <p>Get personalized college suggestions based on your preferences and budget.</p>
+        </div>
+        <div class="p-6 bg-gray-100 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold mb-4">Scholarship Finder</h3>
+          <p>Explore colleges offering scholarships and low-fee options.</p>
+        </div>
+        <div class="p-6 bg-gray-100 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold mb-4">Placement Insights</h3>
+          <p>Find colleges with the best placement records and opportunities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="bg-gray-900 text-white py-12">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center mb-8">Contact Us</h2>
+      <form class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-semibold">Name</label>
+          <input type="text" id="name" class="w-full p-2 rounded-lg bg-gray-800 text-white" placeholder="Your Name">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-semibold">Email</label>
+          <input type="email" id="email" class="w-full p-2 rounded-lg bg-gray-800 text-white" placeholder="Your Email">
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-semibold">Message</label>
+          <textarea id="message" class="w-full p-2 rounded-lg bg-gray-800 text-white" rows="4"
+            placeholder="Your Message"></textarea>
+        </div>
+        <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg font-semibold">Send
+          Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white py-4 text-center">
+    <p>&copy; 2025 CollegeRanking. All rights reserved.</p>
+    <div class="flex justify-center gap-4 mt-2">
+      <a href="#" class="hover:text-blue-500">Facebook</a>
+      <a href="#" class="hover:text-blue-500">Twitter</a>
+      <a href="#" class="hover:text-blue-500">LinkedIn</a>
+    </div>
+  </footer>
+
+
+
+
+  <div id="vanta-bg" class="sm:h-[50%]"></div>
+
+
+
+
+
+  <script>
+
+    VANTA.BIRDS({
+      el: "#vanta-bg", // Target the div for Vanta.js
+      backgroundColor: 0x0, // Transparent background
+      color1: 0xff6600, // Adjust colors for birds
+      color2: 0xffffff,
+      birdSize: 1.5,
+      wingSpan: 25,
+      separation: 60,
+      alignment: 50,
+      cohesion: 10
+    });
+
+
+    gsap.fromTo(
+      "h2",
+      { opacity: 0, y: -50 },
+      { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" }
+    );
+
+    gsap.fromTo(
+      "p.subtitle",
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1.5, delay: 0.5, ease: "power2.out" }
+    );
+    const menuBtn = document.getElementById("menu-btn");
+    const menu = document.getElementById("menu");
+
+    menuBtn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+      menu.classList.toggle("flex");
+    });
+  </script>
+</body>
+
+</html>
