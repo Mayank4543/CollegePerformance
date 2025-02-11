@@ -122,7 +122,7 @@ def faq():
 
 @app.route('/predict', methods = ['POST'])
 def predict():
-
+   
     Category = {'0':'General', '1':'Other Backward Classes-Non Creamy Layer', '6':'Scheduled Castes', '8':'Scheduled Tribes',
                 '3':'General & Persons with Disabilities', '5':'Other Backward Classes & Persons with Disabilities', 
                 '7':'Scheduled Castes & Persons with Disabilities', '9':'Scheduled Tribes & Persons with Disabilities',
@@ -134,26 +134,46 @@ def predict():
 
     Institute = {'0':'IIT', '1':'NIT'}
 
-    sa = gspread.service_account(filename="collegeranking.json")
+    sa = gspread.service_account(filename="collegeranking-8af6481697ee.json")
     sh = sa.open("collegeranking")
     wks = sh.worksheet("collegeranking")   
     data = wks.get_all_values()
     
 
     data = [x for x in request.form.values()]
-    
+    print("Received Data:", data)
+    print("Data Length:", len(data))
     list1 = data.copy()
 
-    list1[2] = Category.get(list1[2])
-    list1[3] = Quota.get(list1[3])
-    list1[4] = Pool.get(list1[4])
-    list1[5] = Institute.get(list1[5])
-
-    data.pop(0)
-    data.pop(0)
-    data.pop(7)
-    data1 = [float(x) for x in data]
    
+
+    list1[4] = Category.get(list1[4])
+    list1[5] = Quota.get(list1[5])
+    list1[6] = Pool.get(list1[6])
+    list1[7] = Institute.get(list1[7])
+
+    print("Printing list1[4]:", list1[4])
+    print("Printing list1[5]:", list1[5])
+    print("Printing list1[6]:", list1[6])
+    print("Printing list1[7]:", list1[7])
+
+# Ensure data has enough elements before popping
+    if len(data) > 1:
+       data.pop(0)  # Remove first element
+    if len(data) > 1:
+       data.pop(0)  # Remove second element
+    if len(data) > 8:  
+       data.pop(8)  # Remove 9th element only if it exists
+
+# Convert remaining elements to float safely
+    try:
+       data1 = [float(x) for x in data]
+    except ValueError as e:
+       print("Error converting to float:", e)
+       data1 = []  # Handle error by setting empty list
+
+    print("Final Processed Data:", data1)
+
 
     final_output = np.array(data1).reshape(1, -1)
     output = model.predict(final_output)[0]
