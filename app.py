@@ -54,7 +54,50 @@ model = pickle.load(open("model1.pkl", "rb"))
 
 @app.route('/')
 def home():
+
     return render_template('home.html')
+@app.route("/get_colleges", methods=["GET"])
+def get_colleges():
+    colleges = df["College_Name"].unique().tolist()
+    return jsonify(colleges)
+
+@app.route("/compare_colleges", methods=["GET"])
+def compare_colleges():
+    college1 = request.args.get("college1", "").strip()
+    college2 = request.args.get("college2", "").strip()
+
+    if not college1 or not college2:
+        return jsonify({"error": "Both college names must be provided"}), 400
+
+    # Ensure proper matching
+    df["College_Name"] = df["College_Name"].str.replace(r"\s+", " ", regex=True).str.strip()
+
+    # Case-insensitive search
+    data1 = df[df["College_Name"].str.lower() == college1.lower()]
+    data2 = df[df["College_Name"].str.lower() == college2.lower()]
+
+    if data1.empty or data2.empty:
+        return jsonify({
+            "error": "One or both colleges not found in the dataset",
+            "available_colleges": df["College_Name"].unique().tolist()
+        }), 404
+
+    data1 = data1.iloc[0].to_dict()
+    data2 = data2.iloc[0].to_dict()
+
+    features = ["Rating", "Placement", "Avg_Package", "Faculty", "Infrastructure"]
+    comparison_data = {
+        college1: {feature: data1[feature] for feature in features},
+        college2: {feature: data2[feature] for feature in features}
+    }
+
+    return jsonify(comparison_data)
+
+
+    
+
+
+
 
 @app.route('/about')
 def about():
