@@ -94,11 +94,6 @@ def compare_colleges():
     return jsonify(comparison_data)
 
 
-    
-
-
-
-
 @app.route('/about')
 def about():
     return render_template('about.html')
