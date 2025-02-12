@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Ranking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-5">
+
+    <!-- Heading -->
+    <div class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-5">
+        <h1 class="text-2xl font-bold">Found <span class="text-blue-600">23 Colleges</span></h1>
+
+        <!-- Sorting Options -->
+        <div class="flex items-center justify-between mt-4">
+            <span class="text-lg font-semibold">Sort By</span>
+            <div class="flex space-x-4">
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="sort" class="text-blue-600" checked>
+                    <span>Popularity</span>
+                </label>
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="sort">
+                    <span>Rating</span>
+                </label>
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="sort">
+                    <span>Highest Fees</span>
+                </label>
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="sort">
+                    <span>Lowest Fees</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- College List Table -->
+    <div class="max-w-6xl mx-auto mt-6 bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="w-full border-collapse">
+            <thead class="bg-blue-600 text-white">
+                <tr>
+                    <th class="p-3 text-left">CD Rank</th>
+                    <th class="p-3 text-left">Colleges</th>
+                    <th class="p-3 text-left">Course Fees</th>
+                    <th class="p-3 text-left">Placement</th>
+                    <th class="p-3 text-left">User Reviews</th>
+                    <th class="p-3 text-left">Ranking</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- College 1 -->
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3 font-bold">#1</td>
+                    <td class="p-3">
+                        <a href="#" class="text-blue-600 font-semibold">IIT Bombay</a>
+                        <p class="text-sm text-gray-500">Mumbai, Maharashtra</p>
+                        <span class="text-orange-500 text-sm">B.Tech Computer Science Engineering</span>
+                    </td>
+                    <td class="p-3 text-green-600 font-bold">₹ 2,30,700</td>
+                    <td class="p-3">
+                        <p class="text-green-600 font-bold">₹ 23,50,000</p>
+                        <p class="text-gray-600 text-sm">Highest: ₹ 1,00,00,000</p>
+                    </td>
+                    <td class="p-3">
+                        <p class="text-yellow-500 font-bold">4.4 / 5</p>
+                        <p class="text-gray-600 text-sm">368 reviews</p>
+                    </td>
+                    <td class="p-3 text-gray-600 font-bold">#118/1400</td>
+                </tr>
+
+                <!-- College 2 -->
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3 font-bold">#2</td>
+                    <td class="p-3">
+                        <a href="#" class="text-blue-600 font-semibold">IIT Delhi</a>
+                        <p class="text-sm text-gray-500">New Delhi, Delhi NCR</p>
+                        <span class="text-orange-500 text-sm">B.Tech + M.Tech Mathematics</span>
+                    </td>
+                    <td class="p-3 text-green-600 font-bold">₹ 2,28,650</td>
+                    <td class="p-3">
+                        <p class="text-green-600 font-bold">₹ 25,82,000</p>
+                        <p class="text-gray-600 text-sm">Highest: ₹ 2,00,00,000</p>
+                    </td>
+                    <td class="p-3">
+                        <p class="text-yellow-500 font-bold">4.3 / 5</p>
+                        <p class="text-gray-600 text-sm">640 reviews</p>
+                    </td>
+                    <td class="p-3 text-gray-600 font-bold">#150/1400</td>
+                </tr>
+
+                <!-- College 3 -->
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3 font-bold">#3</td>
+                    <td class="p-3">
+                        <a href="#" class="text-blue-600 font-semibold">IIT Madras</a>
+                        <p class="text-sm text-gray-500">Chennai, Tamil Nadu</p>
+                        <span class="text-orange-500 text-sm">B.Tech Artificial Intelligence</span>
+                    </td>
+                    <td class="p-3 text-green-600 font-bold">₹ 2,42,000</td>
+                    <td class="p-3">
+                        <p class="text-green-600 font-bold">₹ 21,48,000</p>
+                        <p class="text-gray-600 text-sm">Highest: ₹ 1,98,00,000</p>
+                    </td>
+                    <td class="p-3">
+                        <p class="text-yellow-500 font-bold">4.3 / 5</p>
+                        <p class="text-gray-600 text-sm">394 reviews</p>
+                    </td>
+                    <td class="p-3 text-gray-600 font-bold">#227/1400</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

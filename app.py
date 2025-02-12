@@ -93,6 +93,39 @@ def compare_colleges():
 
     return jsonify(comparison_data)
 
+def normalize(column):
+    return (column - column.min()) / (column.max() - column.min())
+
+# Normalize relevant columns
+df["Placement Score"] = normalize(df["Placement"])
+df["Rating Score"] = normalize(df["Rating"])
+df["Faculty Score"] = normalize(df["Faculty"])
+df["Infrastructure Score"] = normalize(df["Infrastructure"])
+
+df["UG Fees Score"] = 1 - normalize(df["UG_fee"])  # Lower fees better
+df["PG Fees Score"] = 1 - normalize(df["PG_fee"])  # Lower fees better
+
+# Calculate final ranking score
+df["Final Score"] = (
+    (0.3 * df["Placement Score"]) +
+    (0.2 * df["Rating Score"]) +
+    (0.15 * df["Faculty Score"]) +
+    (0.1 * df["Infrastructure Score"]) +
+    (0.1 * df["UG Fees Score"]) +
+    (0.05 * df["PG Fees Score"])
+)
+
+# Sort colleges by ranking score
+df = df.sort_values(by="Final Score", ascending=False)
+df["Rank"] = range(1, len(df) + 1)
+
+# Convert to list of dicts for HTML rendering
+colleges = df.to_dict(orient="records")
+
+@app.route("/ranking")
+def ranking():
+    print(type(colleges))
+    return render_template("ranking.html", colleges=colleges)
 
 @app.route('/about')
 def about():
