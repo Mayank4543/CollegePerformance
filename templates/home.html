@@ -11,7 +11,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-
   <style>
     nav {
       position: fixed;
@@ -634,9 +633,9 @@
       }
     </style>
   </section>
-   
 
- 
+
+
 
   <section id="coursePredictor" class="min-h-screen bg-[#1a1a2e] py-6 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -645,7 +644,7 @@
         <h1 class="text-3xl font-bold text-purple-400">Course Predictor</h1>
         <p class="mt-2 text-gray-300">Enter your academic details to get personalized course recommendations</p>
       </div>
-  
+
       <!-- Main Content -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Input Form -->
@@ -655,7 +654,7 @@
               <!-- Academic Details -->
               <div class="space-y-4">
                 <h3 class="text-lg font-semibold text-purple-300">Academic Details</h3>
-  
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium">Name</label>
@@ -668,7 +667,7 @@
                       class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
                   </div>
                 </div>
-  
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium">JEE Main Rank</label>
@@ -681,7 +680,7 @@
                       class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
                   </div>
                 </div>
-  
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium">Category</label>
@@ -720,7 +719,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <!-- Preferences -->
               <div class="space-y-4 mt-4">
                 <h3 class="text-lg font-semibold text-purple-300">Preferences</h3>
@@ -748,7 +747,7 @@
                   </div>
                 </div>
               </div>
-  
+
               <button type="submit"
                 class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg hover:bg-purple-700 transition-all font-medium mt-4 shadow-md">
                 Predict College
@@ -756,7 +755,7 @@
             </form>
           </div>
         </div>
-  
+
         <!-- Results Preview -->
         <div class="lg:col-span-1">
           <div class="bg-[#252545] rounded-lg border border-gray-700 p-6 shadow-lg space-y-6 text-center">
@@ -919,55 +918,56 @@
     </div>
   </section>
 
-<section id="comparison" class="bg-gray-900 py-16 text-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-white mb-4">Compare Colleges</h2>
-      <p class="text-lg text-gray-400">Make informed decisions by comparing colleges side by side</p>
-    </div>
+  <section id="comparison" class="bg-gray-900 py-16 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-4">Compare Colleges</h2>
+        <p class="text-lg text-gray-400">Make informed decisions by comparing colleges side by side</p>
+      </div>
 
-    <div class="bg-gray-800 rounded-xl shadow-lg p-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="col-span-1">
-          <label class="block text-sm font-medium text-gray-300 mb-2">Select First College</label>
-          <select id="college1" class="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg"></select>
-        </div>
-        <div class="col-span-1 flex items-center justify-center">
-          <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-            </svg>
+      <div class="bg-gray-800 rounded-xl shadow-lg p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="col-span-1">
+            <label class="block text-sm font-medium text-gray-300 mb-2">Select First College</label>
+            <select id="college1" class="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg"></select>
+          </div>
+          <div class="col-span-1 flex items-center justify-center">
+            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="col-span-1">
+            <label class="block text-sm font-medium text-gray-300 mb-2">Select Second College</label>
+            <select id="college2" class="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg"></select>
           </div>
         </div>
-        <div class="col-span-1">
-          <label class="block text-sm font-medium text-gray-300 mb-2">Select Second College</label>
-          <select id="college2" class="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg"></select>
+
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse border border-gray-700">
+            <thead class="bg-gray-700">
+              <tr>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-300">Criteria</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-blue-400">College A</th>
+                <th class="px-6 py-3 text-center text-sm font-semibold text-green-400">College B</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-table" class="divide-y divide-gray-600"></tbody>
+          </table>
+        </div>
+
+        <div class="mt-8 flex justify-center space-x-4">
+          <button id="compare-btn"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300">Compare
+            Now</button>
+          <button id="reset-btn"
+            class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300">Reset</button>
         </div>
       </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-700">
-          <thead class="bg-gray-700">
-            <tr>
-              <th class="px-6 py-3 text-left text-sm font-semibold text-gray-300">Criteria</th>
-              <th class="px-6 py-3 text-center text-sm font-semibold text-blue-400">College A</th>
-              <th class="px-6 py-3 text-center text-sm font-semibold text-green-400">College B</th>
-            </tr>
-          </thead>
-          <tbody id="comparison-table" class="divide-y divide-gray-600"></tbody>
-        </table>
-      </div>
-
-      <div class="mt-8 flex justify-center space-x-4">
-        <button id="compare-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300">Compare
-          Now</button>
-        <button id="reset-btn"
-          class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300">Reset</button>
-      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
   <section id="contact" class="bg-neutral-900 py-16">
@@ -1266,51 +1266,51 @@
       </div>
     </div>
   </footer>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    fetch('/get_colleges')
-      .then(response => response.json())
-      .then(data => {
-        let collegeDropdowns = [document.getElementById("college1"), document.getElementById("college2")];
-        collegeDropdowns.forEach(dropdown => {
-          dropdown.innerHTML = '<option value="">Choose a college...</option>' + data.map(college => `<option value="${college}">${college}</option>`).join('');
-        });
-      });
-
-    document.getElementById("compare-btn").addEventListener("click", function () {
-      let college1 = document.getElementById("college1").value;
-      let college2 = document.getElementById("college2").value;
-
-      if (!college1 || !college2) {
-        alert("Please select two colleges to compare.");
-        return;
-      }
-
-      fetch(`/compare_colleges?college1=${college1}&college2=${college2}`)
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch('/get_colleges')
         .then(response => response.json())
         .then(data => {
-          let tableBody = document.getElementById("comparison-table");
-          tableBody.innerHTML = "";
+          let collegeDropdowns = [document.getElementById("college1"), document.getElementById("college2")];
+          collegeDropdowns.forEach(dropdown => {
+            dropdown.innerHTML = '<option value="">Choose a college...</option>' + data.map(college => `<option value="${college}">${college}</option>`).join('');
+          });
+        });
 
-          Object.keys(data[college1]).forEach(feature => {
-            let row = `<tr>
+      document.getElementById("compare-btn").addEventListener("click", function () {
+        let college1 = document.getElementById("college1").value;
+        let college2 = document.getElementById("college2").value;
+
+        if (!college1 || !college2) {
+          alert("Please select two colleges to compare.");
+          return;
+        }
+
+        fetch(`/compare_colleges?college1=${college1}&college2=${college2}`)
+          .then(response => response.json())
+          .then(data => {
+            let tableBody = document.getElementById("comparison-table");
+            tableBody.innerHTML = "";
+
+            Object.keys(data[college1]).forEach(feature => {
+              let row = `<tr>
               <td class="px-6 py-4 text-sm text-neutral-600">${feature}</td>
               <td class="px-6 py-4 text-center text-sm text-blue-600">${data[college1][feature]}</td>
               <td class="px-6 py-4 text-center text-sm text-green-600">${data[college2][feature]}</td>
             </tr>`;
-            tableBody.innerHTML += row;
+              tableBody.innerHTML += row;
+            });
           });
-        });
-    });
+      });
 
-    document.getElementById("reset-btn").addEventListener("click", function () {
-      document.getElementById("comparison-table").innerHTML = "";
-      document.getElementById("college1").selectedIndex = 0;
-      document.getElementById("college2").selectedIndex = 0;
+      document.getElementById("reset-btn").addEventListener("click", function () {
+        document.getElementById("comparison-table").innerHTML = "";
+        document.getElementById("college1").selectedIndex = 0;
+        document.getElementById("college2").selectedIndex = 0;
+      });
     });
-  });
-</script>
-  
+  </script>
+
   <script>
     function prediction() {
       document.forms['pred'].action = '/predict';
