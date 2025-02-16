@@ -96,70 +96,119 @@
     </header>
 <div class="flex flex-wrap justify-center gap-6 py-6 px-6 bg-[#1a1a2e]  shadow-md">
     <select
-        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition">
+        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition"
+        id="stream-select">
         <option>🎓 Select Stream</option>
         <option>Engineering</option>
-        <option>Medical</option>
         <option>Management</option>
     </select>
     <select
-        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition">
+        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition"
+        id="state-select">
         <option>🌍 Select State</option>
         <option>Maharashtra</option>
         <option>Delhi</option>
-        <option>Tamil Nadu</option>
+        <option>Uttar pradesh</option>
+        <option>Tamil nadu</option>
     </select>
-    <select
-        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition">
-        <option>📚 Select Course</option>
-        <option>B.Tech</option>
-        <option>MBA</option>
-        <option>M.Tech</option>
-    </select>
-    <button class="bg-[#d6409f] px-6 py-3 rounded-lg text-white font-semibold shadow-md hover:bg-[#b52b82] transition">
+   
+    <button class="bg-[#d6409f] px-6 py-3 rounded-lg text-white font-semibold shadow-md hover:bg-[#b52b82] transition"
+        id="clear-all-button">
         ✖ Clear All
     </button>
 </div>
 
-    <!-- College List Table -->
-    <div class="container mx-auto p-6  bg-[#1a1a2e] py-6 text-white">
-        <table class="w-full border-collapse bg-[#252545] text-white rounded-lg overflow-hidden shadow-lg">
-            <thead class="bg-gradient-to-r from-purple-500 to-pink-500 text-left">
-                <tr>
-                    <th class="p-5 text-center font-semibold uppercase tracking-wider">Rank</th>
-                    <th class="p-5 text-center font-semibold uppercase tracking-wider">College</th>
-                    <th class="p-5 text-center font-semibold uppercase tracking-wider">Course Fees</th>
-                    <th class="p-5 text-center font-semibold uppercase tracking-wider">Placement</th>
-                    <th class="p-5 text-center font-semibold uppercase tracking-wider">User Reviews</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
-                    <td class="p-5 text-center">#1</td>
-                    <td class="p-5 text-center">IIT Bombay</td>
-                    <td class="p-5 text-center text-green-400">₹2,30,700</td>
-                    <td class="p-5 text-center text-green-400">₹23,50,000</td>
-                    <td class="p-5 text-center">⭐ 4.4 / 5</td>
-                </tr>
-                <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
-                    <td class="p-5 text-center">#2</td>
-                    <td class="p-5 text-center">IIT Delhi</td>
-                    <td class="p-5 text-center text-green-400">₹2,28,650</td>
-                    <td class="p-5 text-center text-green-400">₹25,82,000</td>
-                    <td class="p-5 text-center">⭐ 4.3 / 5</td>
-                </tr>
-                <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
-                    <td class="p-5 text-center">#3</td>
-                    <td class="p-5 text-center">IIT Madras</td>
-                    <td class="p-5 text-center text-green-400">₹2,42,000</td>
-                    <td class="p-5 text-center text-green-400">₹21,48,000</td>
-                    <td class="p-5 text-center">⭐ 4.3 / 5</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<!-- College List Table -->
+<div class="container mx-auto p-6  bg-[#1a1a2e] py-6 text-white">
+    <table class="w-full border-collapse bg-[#252545] text-white rounded-lg overflow-hidden shadow-lg">
+        <thead class="bg-gradient-to-r from-purple-500 to-pink-500 text-left">
+            <tr>
+                <th class="p-5 text-center font-semibold uppercase tracking-wider">Rank</th>
+                <th class="p-5 text-center font-semibold uppercase tracking-wider">College</th>
+                <th class="p-5 text-center font-semibold uppercase tracking-wider">Course Fees</th>
+                <th class="p-5 text-center font-semibold uppercase tracking-wider">Placement</th>
+                <th class="p-5 text-center font-semibold uppercase tracking-wider">User Reviews</th>
+            </tr>
+        </thead>
+        <tbody id="college-list-table-body">
+            <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                <td class="p-5 text-center">#1</td>
+                <td class="p-5 text-center">IIT Bombay</td>
+                <td class="p-5 text-center text-green-400">₹2,30,700</td>
+                <td class="p-5 text-center text-green-400">₹23,50,000</td>
+                <td class="p-5 text-center">⭐ 4.4 / 5</td>
+            </tr>
+            <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                <td class="p-5 text-center">#2</td>
+                <td class="p-5 text-center">IIT Delhi</td>
+                <td class="p-5 text-center text-green-400">₹2,28,650</td>
+                <td class="p-5 text-center text-green-400">₹25,82,000</td>
+                <td class="p-5 text-center">⭐ 4.3 / 5</td>
+            </tr>
+            <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                <td class="p-5 text-center">#3</td>
+                <td class="p-5 text-center">IIT Madras</td>
+                <td class="p-5 text-center text-green-400">₹2,42,000</td>
+                <td class="p-5 text-center text-green-400">₹21,48,000</td>
+                <td class="p-5 text-center">⭐ 4.3 / 5</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const streamSelect = document.getElementById("stream-select");
+        const stateSelect = document.getElementById("state-select");
+     
+        const tableBody = document.getElementById("college-list-table-body");
+        const clearAllButton = document.getElementById("clear-all-button");
 
+        function fetchColleges() {
+            const stream = streamSelect.value;
+            const state = stateSelect.value;
+          
+
+            if (stream === "🎓 Select Stream" || state === "🌍 Select State") {
+                return;
+            }
+
+            fetch(`/get_ranking?Stream=${stream}&State=${state}`)
+                .then(response => response.json())
+                .then(data => {
+                    tableBody.innerHTML = ""; // Clear table
+
+                    if (data.message) {
+                        tableBody.innerHTML = `<tr><td colspan="5" class="text-center p-5">${data.message}</td></tr>`;
+                        return;
+                    }
+
+                    data.forEach(college => {
+                        const row = `<tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                            <td class="p-5 text-center">#${college.Rank}</td>
+                            <td class="p-5 text-center">${college.College_Name}</td>
+                            <td class="p-5 text-center text-green-400">₹${college.Avg_Package}</td>
+                            <td class="p-5 text-center text-green-400">₹${college.Placement}</td>
+                            <td class="p-5 text-center">${college.Star_Review}</td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error("Error fetching data:", error));
+        }
+
+        [streamSelect, stateSelect].forEach(select => {
+            select.addEventListener("change", fetchColleges);
+        });
+
+        clearAllButton.addEventListener("click", () => {
+            streamSelect.value = "🎓 Select Stream";
+            stateSelect.value = "🌍 Select State";
+           
+            tableBody.innerHTML = "";
+        });
+    });
+</script>
 
 
 </body>

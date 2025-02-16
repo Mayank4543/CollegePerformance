@@ -124,8 +124,93 @@ colleges = df.to_dict(orient="records")
 
 @app.route("/ranking")
 def ranking():
-    print(type(colleges))
-    return render_template("ranking.html", colleges=colleges)
+   
+    return render_template("ranking.html")
+def normalize(column):
+    return (column - column.min()) / (column.max() - column.min())
+
+@app.route('/get_ranking', methods=['GET'])
+def get_ranking():
+    """API to fetch ranked college data based on filters"""
+
+    # Get user selections from request
+    stream = request.args.get("Stream")
+    state = request.args.get("State")
+
+    # Apply filtering (without "Course")
+    filtered_df = df[
+        (df["Stream"] == stream) &
+        (df["State"] == state)
+    ]
+
+    if filtered_df.empty:
+        return jsonify({"message": "No colleges found for the selected criteria"}), 404
+
+    # Normalize relevant columns for ranking
+    filtered_df["Placement_Norm"] = normalize(filtered_df["Placement"])
+    filtered_df["Rating_Norm"] = normalize(filtered_df["Rating"])
+    filtered_df["Faculty_Norm"] = normalize(filtered_df["Faculty"])
+
+    # Compute ranking score
+    filtered_df["Ranking_Score"] = (
+        (0.4 * filtered_df["Placement_Norm"]) +
+        (0.3 * filtered_df["Rating_Norm"]) +
+        (0.3 * filtered_df["Faculty_Norm"])
+    )
+
+    # Sort and assign rank
+    filtered_df = filtered_df.sort_values(by="Ranking_Score", ascending=False)
+    filtered_df["Rank"] = range(1, len(filtered_df) + 1)
+
+    # Convert ratings to star format
+    filtered_df["Star_Review"] = filtered_df["Rating"].apply(lambda x: f"⭐ {round((x / 10) * 5, 1)} / 5")
+
+    # Select only required columns for frontend
+    final_df = filtered_df[["Rank", "College_Name", "Avg_Package", "Placement", "Star_Review"]]
+
+    return jsonify(final_df.to_dict(orient="records"))
+
+    """API to fetch ranked college data based on filters"""
+
+    # Get user selections from request
+    stream = request.args.get("Stream")
+    state = request.args.get("State")
+   
+
+    # Apply filtering
+    filtered_df = df[
+        (df["Stream"] == stream) &
+        (df["State"] == state) 
+     
+    ]
+
+    if filtered_df.empty:
+        return jsonify({"message": "No colleges found for the selected criteria 😢"}), 404
+
+    # Normalize relevant columns for ranking
+    filtered_df["Placement_Norm"] = normalize(filtered_df["Placement"])
+    filtered_df["Rating_Norm"] = normalize(filtered_df["Rating"])
+    filtered_df["Faculty_Norm"] = normalize(filtered_df["Faculty"])
+
+    # Compute ranking score (adjust weights if needed)
+    filtered_df["Ranking_Score"] = (
+        (0.4 * filtered_df["Placement_Norm"]) +
+        (0.3 * filtered_df["Rating_Norm"]) +
+        (0.3 * filtered_df["Faculty_Norm"])
+    )
+
+    # Sort and assign rank
+    filtered_df = filtered_df.sort_values(by="Ranking_Score", ascending=False)
+    filtered_df["Rank"] = range(1, len(filtered_df) + 1)
+
+    # Convert ratings to star format (⭐ 4.5 / 5)
+    filtered_df["Star_Review"] = filtered_df["Rating"].apply(lambda x: f"⭐ {round((x / 10) * 5, 1)} / 5")
+
+    # Select only required columns for frontend
+    final_df = filtered_df[["Rank", "College_Name", "Avg_Package", "Placement", "Star_Review"]]
+
+    # Convert to JSON and return
+    return jsonify(final_df.to_dict(orient="records"))
 
 @app.route('/about')
 def about():
