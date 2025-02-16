@@ -1,117 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Ranking</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ranking Page</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-gray-100 p-5">
 
-    <!-- Heading -->
-    <div class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-5">
-        <h1 class="text-2xl font-bold">Found <span class="text-blue-600">23 Colleges</span></h1>
+<body>
 
-        <!-- Sorting Options -->
-        <div class="flex items-center justify-between mt-4">
-            <span class="text-lg font-semibold">Sort By</span>
-            <div class="flex space-x-4">
-                <label class="flex items-center space-x-2">
-                    <input type="radio" name="sort" class="text-blue-600" checked>
-                    <span>Popularity</span>
-                </label>
-                <label class="flex items-center space-x-2">
-                    <input type="radio" name="sort">
-                    <span>Rating</span>
-                </label>
-                <label class="flex items-center space-x-2">
-                    <input type="radio" name="sort">
-                    <span>Highest Fees</span>
-                </label>
-                <label class="flex items-center space-x-2">
-                    <input type="radio" name="sort">
-                    <span>Lowest Fees</span>
-                </label>
+    <nav id="navbar"
+        class="fixed w-full z-50 backdrop-blur-md bg-neutral-900/90 text-white border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="el-defr29zm">
+            <div class="flex items-center justify-between h-20" id="el-5skzdr1z">
+                <!-- Logo -->
+                <div class="flex-shrink-0 group" id="el-652itfqz">
+
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+                        id="el-aa77zpi7">CollegeRanking</h1>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:block" id="el-uvuid3ax">
+                    <div class="ml-10 flex items-center space-x-12" id="el-5yfzsxo6">
+                        <a href="/"
+                            class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                            id="el-vxftzeku">Home</a>
+                        <a href="/ranking"
+                            class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                            id="el-gv1gvlmj">Ranking</a>
+                        <a href="/about"
+                            class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                            id="el-n5ekul2r">About</a>
+
+                        <a href="/recommend-college"
+                            class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+                            id="el-4zrlraz3">Contact</a>
+                        <a href="/login"
+                            class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+                            id="el-4zrlraz3">Login</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden" id="el-n1vkom4g">
+                    <button id="mobile-menu-button"
+                        class="text-white hover:text-purple-400 transition-colors duration-300">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="el-dr0axzoc">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" id="el-ycsfhr5g"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-4 py-6 space-y-4 bg-neutral-800/90 backdrop-blur-md border-t border-neutral-700"
+                id="el-a1bapgrh">
+                <a href="/"
+                    class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+                    id="el-ocge5vmz">Home</a>
+                <a href="#"
+                    class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+                    id="el-fycto9fn">Products</a>
+                <a href="#"
+                    class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+                    id="el-k1qbfthw">About</a>
+                <a href="#"
+                    class="block px-4 py-3 text-center text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 animate__animated animate__fadeIn"
+                    id="el-8h29o724">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header
+        class="flex flex-col h-full  pt-20 sm:pt-24 lg:pt-32 items-center justify-center bg-[rgb(30,32,36)] px-6  text-white">
+
+        <div class="mb-4 rounded-lg  px-4 py-1 text-sm font-semibold">
+            🚀
+            <span class="underline underline-offset-2 text-green-400 hover:text-green-300 mr-1">
+                Unlock Insights into College Performance!
+            </span>
+        </div>
+
+        <h1 class="mb-4 max-w-5xl    text-center dark:text-white  text-3xl font-extrabold sm:text-5xl lg:text-6xl">
+            Analyze rankings,placements,and faculty Experience with real data.
+        </h1>
+        <p class="mb-6 text-center text-lg text-gray-400">
+            🔍 Helping Students Make Informed Decisions!
+        </p>
+
+    </header>
+<div class="flex flex-wrap justify-center gap-6 py-6 px-6 bg-[#1a1a2e]  shadow-md">
+    <select
+        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition">
+        <option>🎓 Select Stream</option>
+        <option>Engineering</option>
+        <option>Medical</option>
+        <option>Management</option>
+    </select>
+    <select
+        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition">
+        <option>🌍 Select State</option>
+        <option>Maharashtra</option>
+        <option>Delhi</option>
+        <option>Tamil Nadu</option>
+    </select>
+    <select
+        class="p-3 w-56 rounded-lg bg-[#16162d] text-white border border-[#7928CA] hover:border-[#d6409f] focus:ring-2 focus:ring-[#d6409f] outline-none transition">
+        <option>📚 Select Course</option>
+        <option>B.Tech</option>
+        <option>MBA</option>
+        <option>M.Tech</option>
+    </select>
+    <button class="bg-[#d6409f] px-6 py-3 rounded-lg text-white font-semibold shadow-md hover:bg-[#b52b82] transition">
+        ✖ Clear All
+    </button>
+</div>
 
     <!-- College List Table -->
-    <div class="max-w-6xl mx-auto mt-6 bg-white shadow-md rounded-lg overflow-hidden">
-        <table class="w-full border-collapse">
-            <thead class="bg-blue-600 text-white">
+    <div class="container mx-auto p-6  bg-[#1a1a2e] py-6 text-white">
+        <table class="w-full border-collapse bg-[#252545] text-white rounded-lg overflow-hidden shadow-lg">
+            <thead class="bg-gradient-to-r from-purple-500 to-pink-500 text-left">
                 <tr>
-                    <th class="p-3 text-left">CD Rank</th>
-                    <th class="p-3 text-left">Colleges</th>
-                    <th class="p-3 text-left">Course Fees</th>
-                    <th class="p-3 text-left">Placement</th>
-                    <th class="p-3 text-left">User Reviews</th>
-                    <th class="p-3 text-left">Ranking</th>
+                    <th class="p-5 text-center font-semibold uppercase tracking-wider">Rank</th>
+                    <th class="p-5 text-center font-semibold uppercase tracking-wider">College</th>
+                    <th class="p-5 text-center font-semibold uppercase tracking-wider">Course Fees</th>
+                    <th class="p-5 text-center font-semibold uppercase tracking-wider">Placement</th>
+                    <th class="p-5 text-center font-semibold uppercase tracking-wider">User Reviews</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- College 1 -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="p-3 font-bold">#1</td>
-                    <td class="p-3">
-                        <a href="#" class="text-blue-600 font-semibold">IIT Bombay</a>
-                        <p class="text-sm text-gray-500">Mumbai, Maharashtra</p>
-                        <span class="text-orange-500 text-sm">B.Tech Computer Science Engineering</span>
-                    </td>
-                    <td class="p-3 text-green-600 font-bold">₹ 2,30,700</td>
-                    <td class="p-3">
-                        <p class="text-green-600 font-bold">₹ 23,50,000</p>
-                        <p class="text-gray-600 text-sm">Highest: ₹ 1,00,00,000</p>
-                    </td>
-                    <td class="p-3">
-                        <p class="text-yellow-500 font-bold">4.4 / 5</p>
-                        <p class="text-gray-600 text-sm">368 reviews</p>
-                    </td>
-                    <td class="p-3 text-gray-600 font-bold">#118/1400</td>
+                <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                    <td class="p-5 text-center">#1</td>
+                    <td class="p-5 text-center">IIT Bombay</td>
+                    <td class="p-5 text-center text-green-400">₹2,30,700</td>
+                    <td class="p-5 text-center text-green-400">₹23,50,000</td>
+                    <td class="p-5 text-center">⭐ 4.4 / 5</td>
                 </tr>
-
-                <!-- College 2 -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="p-3 font-bold">#2</td>
-                    <td class="p-3">
-                        <a href="#" class="text-blue-600 font-semibold">IIT Delhi</a>
-                        <p class="text-sm text-gray-500">New Delhi, Delhi NCR</p>
-                        <span class="text-orange-500 text-sm">B.Tech + M.Tech Mathematics</span>
-                    </td>
-                    <td class="p-3 text-green-600 font-bold">₹ 2,28,650</td>
-                    <td class="p-3">
-                        <p class="text-green-600 font-bold">₹ 25,82,000</p>
-                        <p class="text-gray-600 text-sm">Highest: ₹ 2,00,00,000</p>
-                    </td>
-                    <td class="p-3">
-                        <p class="text-yellow-500 font-bold">4.3 / 5</p>
-                        <p class="text-gray-600 text-sm">640 reviews</p>
-                    </td>
-                    <td class="p-3 text-gray-600 font-bold">#150/1400</td>
+                <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                    <td class="p-5 text-center">#2</td>
+                    <td class="p-5 text-center">IIT Delhi</td>
+                    <td class="p-5 text-center text-green-400">₹2,28,650</td>
+                    <td class="p-5 text-center text-green-400">₹25,82,000</td>
+                    <td class="p-5 text-center">⭐ 4.3 / 5</td>
                 </tr>
-
-                <!-- College 3 -->
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="p-3 font-bold">#3</td>
-                    <td class="p-3">
-                        <a href="#" class="text-blue-600 font-semibold">IIT Madras</a>
-                        <p class="text-sm text-gray-500">Chennai, Tamil Nadu</p>
-                        <span class="text-orange-500 text-sm">B.Tech Artificial Intelligence</span>
-                    </td>
-                    <td class="p-3 text-green-600 font-bold">₹ 2,42,000</td>
-                    <td class="p-3">
-                        <p class="text-green-600 font-bold">₹ 21,48,000</p>
-                        <p class="text-gray-600 text-sm">Highest: ₹ 1,98,00,000</p>
-                    </td>
-                    <td class="p-3">
-                        <p class="text-yellow-500 font-bold">4.3 / 5</p>
-                        <p class="text-gray-600 text-sm">394 reviews</p>
-                    </td>
-                    <td class="p-3 text-gray-600 font-bold">#227/1400</td>
+                <tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                    <td class="p-5 text-center">#3</td>
+                    <td class="p-5 text-center">IIT Madras</td>
+                    <td class="p-5 text-center text-green-400">₹2,42,000</td>
+                    <td class="p-5 text-center text-green-400">₹21,48,000</td>
+                    <td class="p-5 text-center">⭐ 4.3 / 5</td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+
+
 
 </body>
 

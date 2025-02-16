@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CR</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -76,343 +76,7 @@
       }
     }
 
-    /* From Uiverse.io by gamerx151 */
-    .tooltip-container {
-      background: rgb(3, 169, 244);
-      background: #ec4899;
-      position: relative;
-      cursor: pointer;
-      font-size: 17px;
-      padding: 0.7em 0.7em;
-      border-radius: 50px;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    }
-
-    .tooltip-container:hover {
-      background: #fff;
-      transition: all 0.9s;
-    }
-
-    .tooltip-container .text {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      fill: #fff;
-      transition: all 0.2s;
-    }
-
-    .tooltip-container:hover .text {
-      fill: rgb(0, 0, 0);
-      transition: all 0.9s;
-    }
-
-    /* Inicio do tooltip twitter */
-    .tooltip1 {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      visibility: hidden;
-      background: #000000;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip1 {
-      top: 150%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      border-radius: 50px;
-      transform: translate(-50%, -5px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip1:hover {
-      background: #03a9f4;
-      fill: #fff;
-    }
-
-    /* Fim do tooltip twitter */
-
-    /* Inicio do tooltip facebook */
-    .tooltip2 {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip2 {
-      top: -120%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      transform: translate(-50%, -5px);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip2:hover {
-      background: #001722;
-      fill: #fff;
-    }
-
-    /* Fim do tooltip facebook */
-
-    /* Inicio do tooltip whatsApp */
-    .tooltip3 {
-      position: absolute;
-      top: 100%;
-      left: 60%;
-      transform: translateX(80%);
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip3 {
-      top: 10%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      transform: translate(85%, -5px);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip3:hover {
-      background: #1db954;
-      fill: #000000;
-    }
-
-    /* Fim do tooltip whatsApp */
-
-    /* Inicio do tooltip Discord */
-    .tooltip4 {
-      position: absolute;
-      top: 100%;
-      left: -190%;
-      transform: translateX(70%);
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip4 {
-      top: 10%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      transform: translate(70%, -5px);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip4:hover {
-      background: #8c9eff;
-      fill: #fff;
-    }
-
-    /* Fim do tooltip Discord */
-
-    /* Inicio do tooltip pinterest */
-    .tooltip5 {
-      position: absolute;
-      top: 100%;
-      left: -145%;
-      transform: translateX(70%);
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip5 {
-      top: -78%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      transform: translate(70%, -5px);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip5:hover {
-      background: #bd081c;
-      fill: #fff;
-    }
-
-    /* Fim do tooltip pinterest */
-
-    /* Inicio do tooltip dribbble */
-    .tooltip6 {
-      position: absolute;
-      top: 100%;
-      left: 35%;
-      transform: translateX(70%);
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip6 {
-      top: -79%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      transform: translate(70%, -5px);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip6:hover {
-      background: #ea4c89;
-      fill: #fff;
-    }
-
-    /* Fim do tooltip dribbble */
-
-    /* Inicio do tooltip github */
-    .tooltip7 {
-      position: absolute;
-      top: 100%;
-      left: 39%;
-      transform: translateX(70%);
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip7 {
-      top: 104%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      transform: translate(70%, -5px);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip7:hover {
-      background: #000;
-      fill: #fff;
-    }
-
-    /* Fim do tooltip github */
-
-    /* Inicio do tooltip reddit */
-    .tooltip8 {
-      position: absolute;
-      top: 100%;
-      left: -150%;
-      transform: translateX(70%);
-      opacity: 0;
-      visibility: hidden;
-      background: #fff;
-      fill: #001722;
-      padding: 10px;
-      border-radius: 50px;
-      transition: opacity 0.3s, visibility 0.3s, top 0.3s, background 0.3s;
-      z-index: 1;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .tooltip-container:hover .tooltip8 {
-      top: 101%;
-      opacity: 1;
-      visibility: visible;
-      background: #fff;
-      transform: translate(70%, -5px);
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tooltip-container:hover .tooltip8:hover {
-      background: #ff4500;
-      fill: #fff;
-    }
-
-    /* Fim do tooltip reddit */
-
-    /* Inicio do tooltip fixo */
-    .tooltip9 {
-      position: absolute;
-      top: 0;
-      left: -115%;
-      opacity: 0;
-      visibility: hidden;
-      width: 150px;
-      height: 150px;
-      z-index: -1;
-    }
-
-    .tooltip-container:hover .tooltip9 {
-      top: -110%;
-      opacity: 1;
-      visibility: visible;
-      border-radius: 50%;
-      z-index: -1;
-    }
+  
   </style>
 </head>
 
@@ -427,6 +91,7 @@
         <div class="flex items-center justify-between h-20" id="el-5skzdr1z">
           <!-- Logo -->
           <div class="flex-shrink-0 group" id="el-652itfqz">
+            
             <h1
               class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
               id="el-aa77zpi7">CollegeRanking</h1>
@@ -435,13 +100,13 @@
           <!-- Desktop Menu -->
           <div class="hidden md:block" id="el-uvuid3ax">
             <div class="ml-10 flex items-center space-x-12" id="el-5yfzsxo6">
-              <a href="#"
+              <a href="/"
                 class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
                 id="el-vxftzeku">Home</a>
               <a href="/ranking"
                 class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
                 id="el-gv1gvlmj">Ranking</a>
-              <a href="#"
+              <a href="/about"
                 class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
                 id="el-n5ekul2r">About</a>
 
@@ -641,8 +306,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
       <div class="mb-8 text-center">
-        <h1 class="text-3xl font-bold text-purple-400">Course Predictor</h1>
-        <p class="mt-2 text-gray-300">Enter your academic details to get personalized course recommendations</p>
+        <h1 class="text-3xl font-bold text-purple-400">College Predictor</h1>
+        <p class="mt-2 text-gray-300">Enter your academic details to get personalized college recommendations</p>
       </div>
 
       <!-- Main Content -->
