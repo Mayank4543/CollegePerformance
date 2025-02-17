@@ -11,73 +11,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-  <style>
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 10;
-      backdrop-filter: blur(10px);
-    }
-
-    /* Animation styles for text */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeIn 1.5s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .subtitle {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1.8s ease-out forwards;
-      animation-delay: 0.5s;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        gap: 2;
-        align-items: center;
-      }
-
-      nav ul li {
-        padding: 0.5rem 0;
-      }
-
-      h2 {
-        font-size: 2.5rem;
-      }
-
-      p.subtitle {
-        font-size: 1rem;
-        text-align: center;
-        padding: 0 1rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h2 {
-        font-size: 1.8rem;
-      }
-
-      p.subtitle {
-        font-size: 0.9rem;
-        padding: 0 0.5rem;
-      }
-    }
-
   
-  </style>
 </head>
 
 
@@ -743,7 +677,7 @@
             </div>
 
             <button type="submit"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
+              class="w-full bg-purple-600  hover:bg-purple-700 transition-all text-white font-bold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105">
               Send Message
             </button>
 
