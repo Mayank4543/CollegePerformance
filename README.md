@@ -1,4 +1,5 @@
 # College Performance and Ranking Application
+# Author: Mayank Rathore
 
 ## 📌 Overview
 

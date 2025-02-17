@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CR</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+
+</head>
+
+
+<body class="h-screen ">
+
+
+    <div id="root">
+        <nav id="navbar"
+            class="fixed w-full z-50 backdrop-blur-md bg-neutral-900/90 text-white border-b border-neutral-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" id="el-defr29zm">
+                <div class="flex items-center justify-between h-20" id="el-5skzdr1z">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 group" id="el-652itfqz">
+
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
+                            id="el-aa77zpi7">CollegeRanking</h1>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:block" id="el-uvuid3ax">
+                        <div class="ml-10 flex items-center space-x-12" id="el-5yfzsxo6">
+                            <a href="/"
+                                class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                                id="el-vxftzeku">Home</a>
+                            <a href="/ranking"
+                                class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                                id="el-gv1gvlmj">Ranking</a>
+                            <a href="/about"
+                                class="relative text-sm font-medium hover:text-purple-400 transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-purple-400 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"
+                                id="el-n5ekul2r">About</a>
+
+                            <a href="/recommend-college"
+                                class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+                                id="el-4zrlraz3">Contact</a>
+                            <a href="/login"
+                                class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+                                id="el-4zrlraz3">Login</a>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden" id="el-n1vkom4g">
+                        <button id="mobile-menu-button"
+                            class="text-white hover:text-purple-400 transition-colors duration-300">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="el-dr0axzoc">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h16" id="el-ycsfhr5g"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden">
+                <div class="px-4 py-6 space-y-4 bg-neutral-800/90 backdrop-blur-md border-t border-neutral-700"
+                    id="el-a1bapgrh">
+                    <a href="#"
+                        class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+                        id="el-ocge5vmz">Home</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+                        id="el-fycto9fn">Products</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-sm font-medium hover:bg-neutral-700/50 rounded-xl transition-all duration-300 animate__animated animate__fadeIn"
+                        id="el-k1qbfthw">About</a>
+                    <a href="#"
+                        class="block px-4 py-3 text-center text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 animate__animated animate__fadeIn"
+                        id="el-8h29o724">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% block body %} {% endblock %}
+    <footer id="footer" class="bg-neutral-900 pt-20 pb-10 relative overflow-hidden">
+        <!-- Gradient Background Effect -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent pointer-events-none"
+            id="el-hfxx2sbg"></div>
+    
+        <!-- Animated Background Dots -->
+        <div class="absolute inset-0 opacity-10" id="el-8i0sj72i">
+            <div class="absolute w-40 h-40 bg-purple-500 rounded-full -top-20 -left-20 blur-3xl animate-pulse"
+                id="el-9coxyes8">
+            </div>
+            <div class="absolute w-40 h-40 bg-blue-500 rounded-full -bottom-20 -right-20 blur-3xl animate-pulse delay-1000"
+                id="el-ijmq0wqi"></div>
+        </div>
+    
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" id="el-jjc5b07m">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16" id="el-u5qx8r1a">
+                <!-- Company Info -->
+                <div class="space-y-6 transform hover:scale-105 transition-transform duration-300" id="el-r20whdn5">
+                    <h3 class="text-3xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-600"
+                        id="el-30a42voa">CollegeRanking</h3>
+                    <p class="text-neutral-400 leading-relaxed" id="el-1spq5ybu">Revolutionizing the future integration
+                        technology.</p>
+                    <div class="flex space-x-4" id="el-qgthai7g">
+                        <a href="#"
+                            class="text-purple-400 hover:text-purple-300 transition-all duration-300 hover:-translate-y-1"
+                            id="el-7nx6mllj">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" id="el-fsvucmi3">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                                    id="el-r7q0slku"></path>
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="text-purple-400 hover:text-purple-300 transition-all duration-300 hover:-translate-y-1"
+                            id="el-3wrbhfe4">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" id="el-pjrzyan5">
+                                <path fill-rule="evenodd"
+                                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                                    clip-rule="evenodd" id="el-utu8z5sv"></path>
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="text-purple-400 hover:text-purple-300 transition-all duration-300 hover:-translate-y-1"
+                            id="el-o4ab5i2o">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" id="el-rcddmg7y">
+                                <path fill-rule="evenodd"
+                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                    clip-rule="evenodd" id="el-d1m1oqta"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+    
+                <!-- Quick Links -->
+                <div class="transform hover:translate-x-2 transition-transform duration-300" id="el-lan8mvbj">
+                    <h4 class="text-white font-semibold mb-6 text-lg" id="el-sanwetxd">Quick Links</h4>
+                    <ul class="space-y-4 text-neutral-400" id="el-27bo7q0j">
+                        <li id="el-e8s6h6dk"><a href="#"
+                                class="hover:text-purple-400 transition-colors duration-300 flex items-center"
+                                id="el-jh03g8g6"><span class="mr-2" id="el-m2hv87tv">→</span>About Us</a></li>
+                        <li id="el-vyjsdskz"><a href="#"
+                                class="hover:text-purple-400 transition-colors duration-300 flex items-center"
+                                id="el-yww0c4g9"><span class="mr-2" id="el-06ncc6zz">→</span>Resource</a></li>
+                        <li id="el-938425cb"><a href="#"
+                                class="hover:text-purple-400 transition-colors duration-300 flex items-center"
+                                id="el-3wmg82c1"><span class="mr-2" id="el-ciebd0xu">→</span>Rating</a></li>
+                        <li id="el-fbice79j"><a href="#"
+                                class="hover:text-purple-400 transition-colors duration-300 flex items-center"
+                                id="el-gwvxabjw"><span class="mr-2" id="el-sktgtszx">→</span>Contact</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Support -->
+                <div class="transform hover:translate-x-2 transition-transform duration-300" id="el-biz7d13m">
+                    <h4 class="text-white font-semibold mb-6 text-lg" id="el-3ppnr2xv">Support</h4>
+                    <ul class="space-y-4 text-neutral-400" id="el-0rwa8l4n">
+                        <li id="el-8zxpqd1i"><a href="#"
+                                class="hover:text-purple-400 transition-colors duration-300 flex items-center"
+                                id="el-6ju95fmh"><span class="mr-2" id="el-33td1spm">→</span>Documentation</a></li>
+                        <li id="el-eqgx9kog"><a href="#"
+                                class="hover:text-purple-400 transition-colors duration-300 flex items-center"
+                                id="el-twgj0v6k"><span class="mr-2" id="el-kb8fwf9u">→</span>FAQ</a></li>
+    
+                    </ul>
+                </div>
+    
+                <!-- Newsletter -->
+                <div class="space-y-6 transform hover:scale-105 transition-transform duration-300" id="el-grmmhgtl">
+                    <h4 class="text-white font-semibold text-lg" id="el-wekjd057">Stay Updated</h4>
+                    <form class="space-y-4" id="el-j07p5hgf">
+                        <div class="relative group" id="el-jb5mwt77">
+                            <input type="email" placeholder="Enter your email" class="w-full bg-neutral-800/50 text-white rounded-lg px-4 py-3 
+                                            focus:outline-none focus:ring-2 focus:ring-purple-600 
+                                            transition-all duration-300
+                                            backdrop-blur-sm
+                                            border border-neutral-700/50
+                                            group-hover:border-purple-500/50" id="el-7ts6xojy">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-gradient-to-r from-purple-600 to-purple-800 
+                                         hover:from-purple-500 hover:to-purple-700 
+                                         text-white py-3 rounded-lg transition-all duration-300 
+                                         transform hover:-translate-y-1 hover:shadow-lg
+                                         focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 focus:ring-offset-neutral-900"
+                            id="el-cb1h6rqq">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+    
+            <div class="border-t border-neutral-800 pt-8 mt-8" id="el-7vq2sop7">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0" id="el-mt8akr5m">
+                    <div class="text-neutral-400 text-sm" id="el-e9hrdxxb">
+                        © 2025 CR. All rights reserved.
+                    </div>
+                    <div class="flex space-x-6 text-neutral-400 text-sm" id="el-7fwl70u4">
+                        <a href="#" class="hover:text-purple-400 transition-colors duration-300" id="el-dnw5g9z0">Privacy
+                            Policy</a>
+                        <a href="#" class="hover:text-purple-400 transition-colors duration-300" id="el-gmoaq7d1">Terms of
+                            Service</a>
+                        <a href="#" class="hover:text-purple-400 transition-colors duration-300" id="el-2ij1c0e6">Cookie
+                            Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/get_colleges')
+                .then(response => response.json())
+                .then(data => {
+                    let collegeDropdowns = [document.getElementById("college1"), document.getElementById("college2")];
+                    collegeDropdowns.forEach(dropdown => {
+                        dropdown.innerHTML = '<option value="">Choose a college...</option>' + data.map(college => `<option value="${college}">${college}</option>`).join('');
+                    });
+                });
+
+            document.getElementById("compare-btn").addEventListener("click", function () {
+                let college1 = document.getElementById("college1").value;
+                let college2 = document.getElementById("college2").value;
+
+                if (!college1 || !college2) {
+                    alert("Please select two colleges to compare.");
+                    return;
+                }
+
+                fetch(`/compare_colleges?college1=${college1}&college2=${college2}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let tableBody = document.getElementById("comparison-table");
+                        tableBody.innerHTML = "";
+
+                        Object.keys(data[college1]).forEach(feature => {
+                            let row = `<tr>
+                  <td class="px-6 py-4 text-sm text-neutral-600">${feature}</td>
+                  <td class="px-6 py-4 text-center text-sm text-blue-600">${data[college1][feature]}</td>
+                  <td class="px-6 py-4 text-center text-sm text-green-600">${data[college2][feature]}</td>
+                </tr>`;
+                            tableBody.innerHTML += row;
+                        });
+                    });
+            });
+
+            document.getElementById("reset-btn").addEventListener("click", function () {
+                document.getElementById("comparison-table").innerHTML = "";
+                document.getElementById("college1").selectedIndex = 0;
+                document.getElementById("college2").selectedIndex = 0;
+            });
+        });
+    </script>
+    
+    <script>
+        function prediction() {
+            document.forms['pred'].action = '/predict';
+            document.forms['pred'].submit();
+        }
+
+        let url = 'https://script.google.com/macros/s/AKfycbySarWwG_HxbcnKeYtcU88PCafsIjwP9qvl4E1QghTBiQ6S6-5yG3ReCKY2WGlrubjVUQ/exec';
+        let form = document.querySelector('#form');
+        form.addEventListener("submit", (e) => {
+            let d = new FormData(form);
+            fetch(url, {
+                method: "POST",
+                body: d
+            }).then((res) => res.text())
+                .then((finalres) => console.log(final.res))
+            e.preventDefault();
+        })
+
+    </script>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+
+
+
+    </script>
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('animate__animated', 'animate__fadeInDown');
+            } else {
+                mobileMenu.classList.add('animate__animated', 'animate__fadeOutUp');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('animate__animated', 'animate__fadeOutUp');
+                }, 300);
+            }
+        });
+
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (event) {
+            event.preventDefault();  // Prevent normal form submission
+
+            const formData = new FormData(this);  // Collect form data
+
+            // Send form data to Web3Forms API using AJAX (Fetch API)
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())  // Parse the JSON response
+                .then(data => {
+                    if (data.success) {
+                        // Show custom modal
+                        document.getElementById('successModal').classList.remove('hidden');
+                        document.getElementById('contactForm').reset();  // Reset form fields
+
+                        // Automatically close the modal after 2 seconds
+                        setTimeout(function () {
+                            document.getElementById('successModal').classList.add('hidden');
+                        }, 2000); // 2000 milliseconds = 2 seconds
+                    } else {
+                        // If failure, show an error message
+                        alert("Oops! Something went wrong. Please try again.");
+                    }
+                })
+                .catch(error => {
+
+                    alert("An error occurred. Please try again.");
+                });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentPage = 1;
+            const limit = 5;  // Number of results per page
+
+            const streamSelect = document.getElementById("stream-select");
+            const stateSelect = document.getElementById("state-select");
+            const tableBody = document.getElementById("college-list-table-body");
+            const clearAllButton = document.getElementById("clear-all-button");
+
+            const prevButton = document.getElementById("prev-page");
+            const nextButton = document.getElementById("next-page");
+            const pageIndicator = document.getElementById("page-indicator");
+
+            function fetchColleges(page = 1) {
+                const stream = streamSelect.value;
+                const state = stateSelect.value;
+
+                if (stream === "🎓 Select Stream" || state === "🌍 Select State") {
+                    return;
+                }
+
+                fetch(`/get_ranking?Stream=${stream}&State=${state}&page=${page}&limit=${limit}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        tableBody.innerHTML = ""; // Clear table
+
+                        if (data.message) {
+                            tableBody.innerHTML = `<tr><td colspan="5" class="text-center p-5">${data.message}</td></tr>`;
+                            return;
+                        }
+
+                        data.data.forEach(college => {
+                            const row = `<tr class="border-t border-gray-600 hover:bg-[#33334d] even:bg-[#1e1e40] transition">
+                            <td class="p-5 text-center">#${college.Rank}</td>
+                            <td class="p-5 text-center">${college.College_Name}</td>
+                            <td class="p-5 text-center text-green-400">₹${college.Avg_Package}</td>
+                            <td class="p-5 text-center text-green-400">₹${college.Placement}</td>
+                            <td class="p-5 text-center">${college.Star_Review}</td>
+                        </tr>`;
+                            tableBody.innerHTML += row;
+                        });
+
+                        // Update pagination controls
+                        currentPage = data.current_page;
+                        pageIndicator.innerText = `Page ${currentPage} of ${data.total_pages}`;
+
+                        prevButton.disabled = currentPage === 1;
+                        nextButton.disabled = currentPage === data.total_pages;
+                    })
+                    .catch(error => console.error("Error fetching data:", error));
+            }
+
+            [streamSelect, stateSelect].forEach(select => {
+                select.addEventListener("change", () => fetchColleges(1));
+            });
+
+            clearAllButton.addEventListener("click", () => {
+                streamSelect.value = "🎓 Select Stream";
+                stateSelect.value = "🌍 Select State";
+                tableBody.innerHTML = "No colleges found for the selected criteria";
+            });
+
+            prevButton.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    fetchColleges(currentPage - 1);
+                }
+            });
+
+            nextButton.addEventListener("click", () => {
+                fetchColleges(currentPage + 1);
+            });
+        });
+
+    </script>
+    
+    </body>
+    
+    </html>
