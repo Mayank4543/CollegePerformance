@@ -131,15 +131,17 @@ def normalize(column):
 
 @app.route('/get_ranking', methods=['GET'])
 def get_ranking():
-    """API to fetch ranked college data based on filters"""
+    """API to fetch ranked college data based on filters with Pagination"""
 
     # Get user selections from request
     stream = request.args.get("Stream")
     state = request.args.get("State")
+    page = int(request.args.get("page", 1))  # Default page = 1
+    limit = int(request.args.get("limit", 10))  # Default limit = 10
 
-    # Apply filtering (without "Course")
+    # Apply filtering
     filtered_df = df[
-        (df["Stream"] == stream) &
+        (df["Stream"] == stream) & 
         (df["State"] == state)
     ]
 
@@ -165,52 +167,26 @@ def get_ranking():
     # Convert ratings to star format
     filtered_df["Star_Review"] = filtered_df["Rating"].apply(lambda x: f"⭐ {round((x / 10) * 5, 1)} / 5")
 
-    # Select only required columns for frontend
-    final_df = filtered_df[["Rank", "College_Name", "Avg_Package", "Placement", "Star_Review"]]
+    # Pagination Logic (Make sure pagination works correctly)
+    total_colleges = len(filtered_df)
+    total_pages = (total_colleges + limit - 1) // limit  # Ceiling division
 
-    return jsonify(final_df.to_dict(orient="records"))
-
-    """API to fetch ranked college data based on filters"""
-
-    # Get user selections from request
-    stream = request.args.get("Stream")
-    state = request.args.get("State")
-   
-
-    # Apply filtering
-    filtered_df = df[
-        (df["Stream"] == stream) &
-        (df["State"] == state) 
-     
-    ]
-
-    if filtered_df.empty:
-        return jsonify({"message": "No colleges found for the selected criteria 😢"}), 404
-
-    # Normalize relevant columns for ranking
-    filtered_df["Placement_Norm"] = normalize(filtered_df["Placement"])
-    filtered_df["Rating_Norm"] = normalize(filtered_df["Rating"])
-    filtered_df["Faculty_Norm"] = normalize(filtered_df["Faculty"])
-
-    # Compute ranking score (adjust weights if needed)
-    filtered_df["Ranking_Score"] = (
-        (0.4 * filtered_df["Placement_Norm"]) +
-        (0.3 * filtered_df["Rating_Norm"]) +
-        (0.3 * filtered_df["Faculty_Norm"])
-    )
-
-    # Sort and assign rank
-    filtered_df = filtered_df.sort_values(by="Ranking_Score", ascending=False)
-    filtered_df["Rank"] = range(1, len(filtered_df) + 1)
-
-    # Convert ratings to star format (⭐ 4.5 / 5)
-    filtered_df["Star_Review"] = filtered_df["Rating"].apply(lambda x: f"⭐ {round((x / 10) * 5, 1)} / 5")
+    if total_colleges > 10:  # Only paginate if more than 10 records
+        start_idx = (page - 1) * limit
+        end_idx = start_idx + limit
+        paginated_df = filtered_df.iloc[start_idx:end_idx]
+    else:
+        paginated_df = filtered_df  # Show all data if <= 10
 
     # Select only required columns for frontend
-    final_df = filtered_df[["Rank", "College_Name", "Avg_Package", "Placement", "Star_Review"]]
+    final_df = paginated_df[["Rank", "College_Name", "Avg_Package", "Placement", "Star_Review"]]
 
-    # Convert to JSON and return
-    return jsonify(final_df.to_dict(orient="records"))
+    return jsonify({
+        "total_pages": total_pages,
+        "current_page": page,
+        "total_records": total_colleges,
+        "data": final_df.to_dict(orient="records")
+    })
 
 @app.route('/about')
 def about():
