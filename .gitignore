@@ -104,12 +104,12 @@ celerybeat.pid
 # Environments
 collegeranking-8af6481697ee.json
 .env
-.venv
+.myenv
 env/
-venv/
+myenv/
 ENV/
 env.bak/
-venv.bak/
+myenv.bak/
 
 # Spyder project settings
 .spyderproject

@@ -7,9 +7,65 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import gspread
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from flask_pymongo import PyMongo
+from datetime import timedelta
+from bson.objectid import ObjectId
 import os
+import datetime
 
 app = Flask(__name__)
+app.config["MONGO_URI"] = "mongodb://localhost:27017/college_predictor"
+mongo = PyMongo(app)
+bcrypt = Bcrypt(app)
+app.config["JWT_SECRET_KEY"] = "your_secret_key"
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
+jwt = JWTManager(app)
+
+users_collection = mongo.db.users
+
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"error": "Email and Password are required"}), 400
+
+    # Check if user exists
+    existing_user = users_collection.find_one({"email": email})
+    if existing_user:
+        return jsonify({"error": "User already exists"}), 400
+
+    # Hash password
+    hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
+
+    # Store user
+    users_collection.insert_one({"email": email, "password": hashed_password})
+
+    return jsonify({"message": "User registered successfully"}), 201
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    user = users_collection.find_one({"email": email})
+    if not user or not bcrypt.check_password_hash(user["password"], password):
+        return jsonify({"error": "Invalid credentials"}), 401
+
+    # Generate access token
+    access_token = create_access_token(identity=email, expires_delta=datetime.timedelta(days=1))
+    return jsonify({"access_token": access_token}), 200
+@app.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    return jsonify({"message": f"Welcome {current_user}, this is a protected route!"})
+
+
 df = pd.read_csv(r'C:\Users\Mayank Rathore\Desktop\College-Predictor-System\College_data_updated.csv')
 df = df.replace('--', np.nan)
 numeric_columns = ['UG_fee', 'PG_fee', 'Rating', 'Academic', 'Faculty', 'Infrastructure', 'Placement']
@@ -62,6 +118,8 @@ def get_colleges():
     return jsonify(colleges)
 
 @app.route("/compare_colleges", methods=["GET"])
+
+
 def compare_colleges():
     college1 = request.args.get("college1", "").strip()
     college2 = request.args.get("college2", "").strip()
@@ -195,10 +253,13 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')  
-@app.route('/login')    
-def login():
-    return render_template('login.html')    
-
+ 
+@app.route('/login')
+def lg():
+    return render_template('login.html')
+@app.route('/register')
+def registr():
+    return render_template('register.html')    
 @app.route('/colleges')
 def colleges():
     return render_template('Top Colleges.html') 
