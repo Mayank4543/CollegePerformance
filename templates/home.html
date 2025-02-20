@@ -1,7 +1,23 @@
 {% extends "./Header/layout.html" %}
 {% block body %}
-  <section id="hero" class="bg-neutral-900 text-white min-h-[70vh] pt-20 relative overflow-hidden">
+
+<div class="bg-[#0f172a] text-white py-3 px-6 flex justify-between items-center text-sm">
+  <p>
+    You see Blog also <span class="font-semibold"></span> 
+    <a href="#" class="underline hover:text-gray-300">Blog here!</a> 
+  </p>
+  <a href="#" class="flex items-center space-x-1 text-gray-300 hover:text-white">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 2c-3.314 0-6 2.686-6 6 0 1.105.895 2 2 2h8c1.105 0 2-.895 2-2 0-3.314-2.686-6-6-6z" />
+    </svg>
+    <span class="font-medium">Gift Cards</span>
+  </a>
+</div>
+
+<section id="hero" class="bg-neutral-900 text-white min-h-[70vh] pt-20 relative overflow-hidden">
     <!-- Background gradient effect -->
+     
     <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-neutral-900/20 backdrop-blur-[120px]"
       id="el-h19v76hy"></div>
 
@@ -42,7 +58,7 @@
           </div>
 
           <div class="flex flex-wrap gap-4" id="el-0nsvnczc">
-            <button
+            <a href="#contact"
               class="group bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25 hover:-translate-y-0.5"
               id="el-lp67fdlv">
               <span class="flex items-center gap-2" id="el-yuprqhrb">
@@ -54,15 +70,15 @@
                   </path>
                 </svg>
               </span>
-            </button>
-            <button
+            </a>
+            <a href="#coursePredictor"
               class="relative overflow-hidden border border-purple-400 text-purple-400 px-8 py-3 rounded-full transition-all duration-300 hover:text-white group"
               id="el-5az3t8y6">
               <span class="relative z-10" id="el-ma4fepl7">Explore More</span>
               <div
                 class="absolute inset-0 bg-purple-400 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"
                 id="el-f0qs6mon"></div>
-            </button>
+            </a>
           </div>
 
           <!-- <div class="flex items-center gap-6 text-neutral-400" id="el-8yoi8afk">
@@ -146,12 +162,12 @@
         animation: float 6s ease-in-out infinite;
       }
     </style>
-  </section>
+</section>
 
 
 
 
-  <section id="coursePredictor" class="min-h-screen bg-[#1a1a2e] py-6 text-white">
+<section id="coursePredictor" class="min-h-screen bg-[#1a1a2e] py-6 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
       <div class="mb-8 text-center">
@@ -280,7 +296,7 @@
         </div>
       </div>
     </div>
-  </section>
+</section>
 
 
   <section id="resources" class="bg-neutral-900 py-16">

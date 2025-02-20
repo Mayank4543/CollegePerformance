@@ -7,8 +7,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import gspread
+
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+
 from flask_pymongo import PyMongo
 from datetime import timedelta
 from bson.objectid import ObjectId
@@ -16,36 +18,47 @@ import os
 import datetime
 
 app = Flask(__name__)
+
+
 app.config["MONGO_URI"] = "mongodb://localhost:27017/college_predictor"
-mongo = PyMongo(app)
-bcrypt = Bcrypt(app)
 app.config["JWT_SECRET_KEY"] = "your_secret_key"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
+
+mongo = PyMongo(app)
+bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
 users_collection = mongo.db.users
 
+# ✅ Ensure admin user exists in MongoDB
+admin_user = {
+    "email": "mayankrathore9897@gmail.com",
+    "password": bcrypt.generate_password_hash("1101009109").decode("utf-8"),
+    "role": "admin"
+}
+
+if not users_collection.find_one({"email": admin_user["email"]}):
+    users_collection.insert_one(admin_user)
+    print("✅ Admin user added successfully!")
+else:
+    print("⚠️ Admin already exists!")
+
+# ✅ User Registration Route
 @app.route("/register", methods=["POST"])
 def register():
     data = request.get_json()
     email = data.get("email")
     password = data.get("password")
 
-    if not email or not password:
-        return jsonify({"error": "Email and Password are required"}), 400
-
-    # Check if user exists
-    existing_user = users_collection.find_one({"email": email})
-    if existing_user:
+    if users_collection.find_one({"email": email}):
         return jsonify({"error": "User already exists"}), 400
 
-    # Hash password
     hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
+    users_collection.insert_one({"email": email, "password": hashed_password, "role": "user"})
+    
+    return jsonify({"message": "Registration successful"}), 201
 
-    # Store user
-    users_collection.insert_one({"email": email, "password": hashed_password})
-
-    return jsonify({"message": "User registered successfully"}), 201
+# ✅ User Login Route
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -53,27 +66,44 @@ def login():
     password = data.get("password")
 
     user = users_collection.find_one({"email": email})
-    if not user or not bcrypt.check_password_hash(user["password"], password):
-        return jsonify({"error": "Invalid credentials"}), 401
 
-    # Generate access token
-    access_token = create_access_token(identity=email, expires_delta=datetime.timedelta(days=1))
-    return jsonify({"access_token": access_token}), 200
-@app.route("/protected", methods=["GET"])
+    if not user or not bcrypt.check_password_hash(user["password"], password):
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    role = user.get("role", "user")  # Ensuring default role if missing
+    print("role",role)
+
+    # Generate JWT Token
+    access_token = create_access_token(identity={"email": user["email"], "role": role})
+
+    print("✅ Generated JWT Token Payload:", {"email": user["email"], "role": role})  # Debugging
+
+    return jsonify({
+        "message": "Login successful",
+        "access_token": access_token,
+        "redirect": "/dashboard" if role == "admin" else "/"
+    }), 200
+
+
+
+
+# ✅ Admin Dashboard Route (Only for Admins)
+@app.route("/dashboard", methods=["GET"])
 @jwt_required()
-def protected():
-    current_user = get_jwt_identity()
-    return jsonify({"message": f"Welcome {current_user}, this is a protected route!"})
+def admin_dashboard():
+    return render_template("dashboard/dashboard.html")
+
+
 
 
 df = pd.read_csv(r'C:\Users\Mayank Rathore\Desktop\College-Predictor-System\College_data_updated.csv')
 df = df.replace('--', np.nan)
-numeric_columns = ['UG_fee', 'PG_fee', 'Rating', 'Academic', 'Faculty', 'Infrastructure', 'Placement']
+numeric_columns = ['Avg_Package','Rating', 'Academic', 'Faculty', 'Infrastructure', 'Placement']
 for col in numeric_columns:
     df[col] = pd.to_numeric(df[col], errors='coerce')
 df = df.dropna(subset=['Placement'])
 college_names = df['College_Name']
-features = ['Rating', 'Academic', 'Faculty', 'Infrastructure', 'UG_fee', 'PG_fee']
+features = ['Rating', 'Academic', 'Faculty', 'Infrastructure', 'Avg_Package']
 X = df[features].copy()
 y = df['Placement']
 for column in features:
@@ -86,8 +116,8 @@ X_test_scaled = scaler.transform(X_test)
 
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
 rf_model.fit(X_train_scaled, y_train)
-def recommend_colleges_flask(rating, academic, faculty, infrastructure, ug_fee, pg_fee, top_n=5):
-    input_data = pd.DataFrame([[rating, academic, faculty, infrastructure, ug_fee, pg_fee]], 
+def recommend_colleges_flask(rating, academic, faculty, infrastructure,avearage_package, top_n=5):
+    input_data = pd.DataFrame([[rating, academic, faculty, infrastructure, avearage_package]], 
                                columns=features)
     input_scaled = scaler.transform(input_data)
     predicted_placement = rf_model.predict(input_scaled)[0]
@@ -98,8 +128,7 @@ def recommend_colleges_flask(rating, academic, faculty, infrastructure, ug_fee, 
         'Academic': df['Academic'],
         'Faculty': df['Faculty'],
         'Infrastructure': df['Infrastructure'],
-        'UG_fee': df['UG_fee'],
-        'PG_fee': df['PG_fee'],
+        'Average_Package': df['Avg_Package'],
         'Actual_Placement': df['Placement']
     })
     recommendations = all_colleges_df.sort_values('Actual_Placement', ascending=False).head(top_n)
@@ -118,7 +147,6 @@ def get_colleges():
     return jsonify(colleges)
 
 @app.route("/compare_colleges", methods=["GET"])
-
 
 def compare_colleges():
     college1 = request.args.get("college1", "").strip()
@@ -151,34 +179,34 @@ def compare_colleges():
 
     return jsonify(comparison_data)
 
-def normalize(column):
-    return (column - column.min()) / (column.max() - column.min())
+# def normalize(column):
+#     return (column - column.min()) / (column.max() - column.min())
 
-# Normalize relevant columns
-df["Placement Score"] = normalize(df["Placement"])
-df["Rating Score"] = normalize(df["Rating"])
-df["Faculty Score"] = normalize(df["Faculty"])
-df["Infrastructure Score"] = normalize(df["Infrastructure"])
+# # Normalize relevant columns
+# df["Placement Score"] = normalize(df["Placement"])
+# df["Rating Score"] = normalize(df["Rating"])
+# df["Faculty Score"] = normalize(df["Faculty"])
+# df["Infrastructure Score"] = normalize(df["Infrastructure"])
 
-df["UG Fees Score"] = 1 - normalize(df["UG_fee"])  # Lower fees better
-df["PG Fees Score"] = 1 - normalize(df["PG_fee"])  # Lower fees better
+# df["UG Fees Score"] = 1 - normalize(df["UG_fee"])  # Lower fees better
+# df["PG Fees Score"] = 1 - normalize(df["PG_fee"])  # Lower fees better
 
-# Calculate final ranking score
-df["Final Score"] = (
-    (0.3 * df["Placement Score"]) +
-    (0.2 * df["Rating Score"]) +
-    (0.15 * df["Faculty Score"]) +
-    (0.1 * df["Infrastructure Score"]) +
-    (0.1 * df["UG Fees Score"]) +
-    (0.05 * df["PG Fees Score"])
-)
+# # Calculate final ranking score
+# df["Final Score"] = (
+#     (0.3 * df["Placement Score"]) +
+#     (0.2 * df["Rating Score"]) +
+#     (0.15 * df["Faculty Score"]) +
+#     (0.1 * df["Infrastructure Score"]) +
+#     (0.1 * df["UG Fees Score"]) +
+#     (0.05 * df["PG Fees Score"])
+# )
 
-# Sort colleges by ranking score
-df = df.sort_values(by="Final Score", ascending=False)
-df["Rank"] = range(1, len(df) + 1)
+# # Sort colleges by ranking score
+# df = df.sort_values(by="Final Score", ascending=False)
+# df["Rank"] = range(1, len(df) + 1)
 
-# Convert to list of dicts for HTML rendering
-colleges = df.to_dict(orient="records")
+# # Convert to list of dicts for HTML rendering
+# colleges = df.to_dict(orient="records")
 
 @app.route("/ranking")
 def ranking():
@@ -273,15 +301,16 @@ def recommend():
     academic = float(request.form['academic'])
     faculty = float(request.form['faculty'])
     infrastructure = float(request.form['infrastructure'])
-    ug_fee = float(request.form['ug_fee'])
-    pg_fee = float(request.form['pg_fee'])
+    avg_fee = float(request.form['Average_Package'])
+    
 
-    predicted_score, recommended_colleges = recommend_colleges_flask(rating, academic, faculty, infrastructure, ug_fee, pg_fee)
+    predicted_score, recommended_colleges = recommend_colleges_flask(rating, academic, faculty, infrastructure, avg_fee)
     
     # Convert recommendations to a list of dictionaries for easy rendering
+     
     recommendations_list = recommended_colleges.to_dict(orient='records')
 
-    return render_template('results.html', predicted_score=predicted_score, recommendations=recommendations_list)
+    return render_template('recommend.html', predicted_score=predicted_score, recommendations=recommendations_list)
 
 
 @app.route('/feature-importance')

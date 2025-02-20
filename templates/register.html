@@ -34,7 +34,8 @@
         <!-- Right Panel -->
         <div class="w-1/2 p-8 flex flex-col justify-center">
             <h2 class="text-2xl text-center font-bold mb-6 text-gray-800">Register</h2>
-            <form>
+            <form onsubmit="register(event)">
+
                 <!-- Email Input -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-600">Email address</label>
@@ -54,7 +55,7 @@
                 </div>
 
                 <!-- Sign Up Button -->
-                <button onclick="register()"
+                <button type="submit"
                     class="w-full bg-teal-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-teal-600 transition">
                     register→
                 </button>
@@ -69,7 +70,8 @@
 
 
     <script>
-        async function register() {
+        async function register(event) {
+            event.preventDefault();
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirm_password").value;

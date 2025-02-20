@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <title>Login</title>
 </head>
 <body class="bg-teal-100 min-h-screen flex items-center justify-center">
@@ -33,7 +33,7 @@
         <!-- Right Panel -->
         <div class="w-1/2 p-8 flex flex-col justify-center">
             <h2 class="text-2xl text-center font-bold mb-6 text-gray-800">Login </h2>
-            <form>
+            <form  onsubmit="login(event)">
                 <!-- Email Input -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-600">Email address</label>
@@ -48,7 +48,7 @@
                 </div>
                 
                 <!-- Sign Up Button -->
-                <button onclick="login()" 
+                <button type="submit"
                     class="w-full bg-teal-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-teal-600 transition">
                     Login→
                 </button>
@@ -56,7 +56,7 @@
                 <div class="mt-6 text-center text-gray-500 text-sm">or</div>
                 <!-- Google Sign-In -->
             <p class="mt-4 text-sm text-center">Don't have an account? <a href="/register" class="text-blue-600">Sign Up</a></p>
-            </form>
+            
         </div>
     </div>
 
@@ -64,7 +64,8 @@
 
 
     <script>
-        async function login() {
+        async function login(event) {
+            event.preventDefault();
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
@@ -76,12 +77,14 @@
 
             const data = await response.json();
             if (response.ok) {
-                localStorage.setItem("access_token", data.access_token);
-                window.location.href = "/" ||"/ranking"||"about";
+                localStorage.setItem("access_token", data.access_token);  // Store token
+                window.location.href = data.redirect;  // Redirect user
             } else {
                 alert(data.error);
             }
         }
     </script>
+
+
 </body>
 </html>

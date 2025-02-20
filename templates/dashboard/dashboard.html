@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Dashboard</title>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg text-center">
+        <h2 class="text-2xl font-bold text-gray-800">Welcome to the Dashboard</h2>
+        <p class="text-sm text-gray-500 mt-2">Logged in as <span id="user-email"></span></p>
+        <button onclick="logout()" class="mt-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition">
+            Logout
+        </button>
+    </div>
+
+    <script>
+        // Fetch the user's email from local storage and display it
+        document.getElementById("user-email").innerText = localStorage.getItem("email");
+
+        // Function to handle logout
+        function logout() {
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("email");
+            window.location.href = "/login";
+        }
+
+        // Check if the user is authenticated before allowing access to the dashboard
+        const token = localStorage.getItem("access_token");
+
+        if (!token) {
+            // Redirect to login if no token is found
+            window.location.href = "/login";
+        } else {
+            // Validate the token by making a request to the /dashboard route
+            fetch("/dashboard", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,  // Include the token in the header
+                },
+            }).then(response => {
+                        if (!response.ok) {
+                            // Handle unauthorized access
+                            console.error("Unauthorized access");
+                            window.location.href = "/login";
+                        }
+                    })
+            .catch(error => {
+                console.error("Error:", error);
+                window.location.href = "/login";
+            });
+        }
+    </script>
+
+</body>
+
+</html>

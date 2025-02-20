@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>College Recommendation System</title>
-</head>
-
-<body>
-    <h1>Enter Your Criteria</h1>
+{% extends "./Header/layout.html" %}
+{% block body %}
+    <!-- <h1>Enter Your Criteria</h1>
     <form action="/recommend" method="post">
         <label for="rating">College Name </label>
         <input type="text" step="0.1" name="College"  placeholder="Enter hcvdfhjb" required><br>
@@ -23,7 +17,130 @@
         <label for="pg_fee">PG Fee:</label>
         <input type="number" name="pg_fee" required><br>
         <button type="submit">Submit</button>
-    </form>
-</body>
-
-</html>
+    </form> -->
+    <section id="hero" class="min-h-[70vh] bg-neutral-900 flex items-center relative overflow-hidden">
+        <!-- Background animation -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 animate-gradient">
+            </div>
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute h-[500px] w-[500px] rounded-full bg-blue-500/30 blur-[100px] -top-10 -left-10"></div>
+                <div class="absolute h-[500px] w-[500px] rounded-full bg-purple-500/30 blur-[100px] -bottom-10 -right-10">
+                </div>
+            </div>
+        </div>
+    
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 animate__animated animate__fadeInDown"
+                    style="visibility: visible;">
+                    Check Your Placement<span
+                        class="text-gradient bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"> Score</span>
+                </h1>
+    
+                <p class="text-lg md:text-xl text-neutral-300 mb-8 animate__animated animate__fadeInUp animate__delay-1s"
+                    style="visibility: visible;">
+                    Know Your Placement Chances Based on Real Data & Analysis!
+                </p>
+    
+                <div class="flex flex-col sm:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-2s"
+                    style="visibility: visible;">
+                    <a href="#coursePredictor"
+                        class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-medium hover:opacity-90 transition-all duration-300">
+                        Get Started
+                    </a>
+                    <a href="#services"
+                        class="px-8 py-3 border border-neutral-500 text-white rounded-full font-medium hover:bg-neutral-800 transition-all duration-300">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate__animated animate__fadeIn animate__delay-3s"
+            style="visibility: visible;">
+            <div class="w-[30px] h-[50px] rounded-full border-2 border-neutral-500 flex justify-center p-2">
+                <div class="w-1 h-3 bg-neutral-500 rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+    <section id="coursePredictor" class="min-h-screen bg-[#1a1a2e] py-6 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="mb-8 text-center">
+                <h1 class="text-3xl font-bold text-purple-400">Enter Predictor</h1>
+                <p class="mt-2 text-gray-300">Enter your College details to get personalized placement recommendations</p>
+            </div>
+    
+            <!-- Main Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Input Form -->
+                <div class="lg:col-span-2">
+                    <div class="bg-[#252545] rounded-lg border border-gray-700 p-6 shadow-lg">
+                        <form action="/recommend" method="post">
+                            <!-- Academic Details -->
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-semibold text-purple-300">College Details</h3>
+    
+                                  
+    
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium">College Name</label>
+                                        <input type="text" name="College" placeholder="Enter College Name" value="" required
+                                            class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
+                                    </div>
+                                    <div>
+                                        <label for="rating" class="block text-sm font-medium">Rating:</label>
+                                        <input type="number" step="0.1" name="rating" placeholder="Enter rating" required
+                                            class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
+                                    </div>
+                                    <div>
+                                        <label for="academic" class="block text-sm font-medium">Academic:</label>
+                                        <input type="number" step="0.1" name="academic" placeholder="Enter Academic" required
+                                            class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
+                                    </div>
+                                    <div>
+                                        <label for="faculty" class="block text-sm font-medium">Faculty Experience</label>
+                                        <input type="number" step="0.1" name="faculty" placeholder="Enter faculty experience"
+                                            class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
+                                    </div>
+                                    <div>
+                                        <label for="infrastructure" class="block text-sm font-medium">Infrastructure</label>
+                                        <input type="number" step="0.1" name="infrastructure" placeholder="Enter Accomodation" required
+                                            class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="Average_Package" class="block text-sm font-medium">Average Fees</label>
+                                        <input type="number" name="Average_Package" placeholder="Enter faculty experience"
+                                            class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
+                                    </div>
+                                </div>
+    
+                               
+                            </div>
+    
+                          
+    
+                            <button type="submit"
+                                class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg hover:bg-purple-700 transition-all font-medium mt-4 shadow-md">
+                                Predict Score
+                            </button>
+                        </form>
+                    </div>
+                </div>
+    
+                <!-- Results Preview -->
+                <div class="lg:col-span-1">
+                    <div class="bg-[#252545] rounded-lg border border-gray-700 p-6 shadow-lg space-y-6 text-center">
+                        <h3 class="text-lg font-semibold text-purple-300">Your Prediction</h3>
+                        <p class="text-purple-500 text-xl font-semibold">Predicted Placement Score: {{ predicted_score }}%</p>
+                        <p class="text-blue-400 text-lg font-semibold">Recommended Colleges </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
