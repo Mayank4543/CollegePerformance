@@ -69,7 +69,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="mb-8 text-center">
-                <h1 class="text-3xl font-bold text-purple-400">Enter Predictor</h1>
+                <h1 class="text-3xl font-bold text-purple-400">Placement Predictor</h1>
                 <p class="mt-2 text-gray-300">Enter your College details to get personalized placement recommendations</p>
             </div>
     
@@ -79,16 +79,13 @@
                 <div class="lg:col-span-2">
                     <div class="bg-[#252545] rounded-lg border border-gray-700 p-6 shadow-lg">
                         <form action="/recommend" method="post">
-                            <!-- Academic Details -->
                             <div class="space-y-4">
                                 <h3 class="text-lg font-semibold text-purple-300">College Details</h3>
-    
-                                  
     
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-medium">College Name</label>
-                                        <input type="text" name="College" placeholder="Enter College Name" value="" required
+                                        <input type="text" name="College" placeholder="Enter College Name" required
                                             class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
                                     </div>
                                     <div>
@@ -98,31 +95,29 @@
                                     </div>
                                     <div>
                                         <label for="academic" class="block text-sm font-medium">Academic:</label>
-                                        <input type="number" step="0.1" name="academic" placeholder="Enter Academic" required
+                                        <input type="number" step="0.1" name="academic" placeholder="Enter Academic"
+                                            required
                                             class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
                                     </div>
                                     <div>
                                         <label for="faculty" class="block text-sm font-medium">Faculty Experience</label>
-                                        <input type="number" step="0.1" name="faculty" placeholder="Enter faculty experience"
+                                        <input type="number" step="0.1" name="faculty"
+                                            placeholder="Enter faculty experience"
                                             class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
                                     </div>
                                     <div>
                                         <label for="infrastructure" class="block text-sm font-medium">Infrastructure</label>
-                                        <input type="number" step="0.1" name="infrastructure" placeholder="Enter Accomodation" required
+                                        <input type="number" step="0.1" name="infrastructure"
+                                            placeholder="Enter Infrastructure Details" required
                                             class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
                                     </div>
-                                    
                                     <div>
                                         <label for="Average_Package" class="block text-sm font-medium">Average Fees</label>
-                                        <input type="number" name="Average_Package" placeholder="Enter faculty experience"
+                                        <input type="number" name="Average_Package" placeholder="Enter average fees"
                                             class="mt-1 block w-full border border-gray-600 bg-gray-800 text-white rounded-md shadow-sm py-2 px-3 focus:ring-purple-400 focus:border-purple-400">
                                     </div>
                                 </div>
-    
-                               
                             </div>
-    
-                          
     
                             <button type="submit"
                                 class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg hover:bg-purple-700 transition-all font-medium mt-4 shadow-md">
@@ -135,12 +130,40 @@
                 <!-- Results Preview -->
                 <div class="lg:col-span-1">
                     <div class="bg-[#252545] rounded-lg border border-gray-700 p-6 shadow-lg space-y-6 text-center">
-                        <h3 class="text-lg font-semibold text-purple-300">Your Prediction</h3>
-                        <p class="text-purple-500 text-xl font-semibold">Predicted Placement Score: {{ predicted_score }}%</p>
-                        <p class="text-blue-400 text-lg font-semibold">Recommended Colleges </p>
+                        <h3 class="text-xl font-semibold text-purple-300">Your Prediction</h3>
+                        <p class="text-green-400 text-2xl font-bold bg-gray-900 p-3 rounded-lg shadow">
+                            Predicted Placement Score: <span class="text-yellow-400">{{ predicted_score
+                                }}</span>
+                        </p>
+    
+                        <p class="text-blue-400 text-lg font-semibold">Recommended Colleges</p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-white text-center border border-gray-700 rounded-lg shadow-lg">
+                                <thead class="bg-gray-800 text-purple-300">
+                                    <tr>
+                                        <th class="p-3">College Name</th>
+                                        <th class="p-3">Placement Score</th>
+                                        <th class="p-3">Rating</th>
+                                        <th class="p-3">Average Fees</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-gray-900">
+                                    {% for college in recommendations %}
+                                    <tr class="border-b border-gray-600 hover:bg-gray-800 transition">
+                                        <td class="p-3">{{ college['College_Name'] }}</td>
+                                        <td class="p-3 text-yellow-400 font-semibold">{{ college['Placement'] }}</td>
+                                        <td class="p-3">{{ college['Rating'] }}</td>
+                                        <td class="p-3">{{ college['Avg_Package'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+    
             </div>
         </div>
     </section>
+
 {% endblock %}

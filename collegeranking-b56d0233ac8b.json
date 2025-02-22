@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "collegeranking",
+  "private_key_id": "b56d0233ac8b630c9277f210295f061441feefb2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCRHqCsamRtjhyv\n82eTrZA8FXrDpKyJE91qlzX63iyxers4cuyZDKiAi1xJ5mHMyNN7HQMNXIUbiO7P\nSXdytRs6+0HAEPdE0xov4pMFM2BeGFmNZHmUxpLHbicTLC3XgMCZuqzdSQ3kICf4\nNxi6o/WN4WSvXNEGUyXfIzekpHbApCFziDFMpw0vugfeuHYtFJhhAEQFyfeqmGFu\nBKQvSB2n2LTA2wq/qxYvUvx3XUXh6CfcUIilB9JnKsrDgEo1IN5ZASUIbBqEHOWl\n71BGVqFsEnj1m9m1fzzvdvZDW0x0/ubraO1vxRZfRvCtqONhdotxcyKhV9m7TYIq\nklVAxKdlAgMBAAECggEAAi4MCu6I3W/7uBxz5dnGB4uwYxDYaGpHFhCVov6gtT1X\nnGOvU+04wBWQtqmwmfQ6UehxqC6c73jzGdWS5xhs5vSTsZkd3cCTXzzE8JhkhxOJ\nOitibXzMWIcBSQjjE9dp8MjHS4ZSSxi9APbWduyXlCCv89Qt/BEBAtplBOnjh6k/\nCHN8OsOv5DPwEZMyCIp28aVIzLzAW3HugsyOIlH/ZTlSXJ7vwlcV5ayX/gLk/BOq\nEbJL+l/q1FkNpYvku8dByOttAcKdaUCMzKBMAKztWEgUEyI8J+0g5CCMNGEBS2Y/\n1mz7ee7eR+/6jjOaCYcWT7Z4xasN6u0j8qM+Vo66UQKBgQDM4e5GcC+q0fgWU1Gv\nilVGMvXvBBL3BntkcRHUZtQu4oqTMyFHFrko5rM8maPullKuuEDcr1ZEOSpMxlmD\n+8OYSbrDT3s+clppJCV1JvHnewIzXMgk51947/tA/tilJ9mETI+tHXfiwnRHvOhv\niJqroz3wlALl2waIFKcIOrC7pwKBgQC1U5NiPmFtfXhAUglC8rY1fQjjGe3Y8pJd\n4a8wO/6GJWSpFLogtoligs3kopuNa8a6bxcYbRxD6UPQ/VQuNj8MdQNsvYvyS2Jf\nMRAT9tDXj7m6iIIQPchotqSmsf4di6zsNgobgPZZQQvMqglRkv1u2nx+wgWLV8vV\nvKyFTZK2EwKBgQDDyqDvFWSoJJGlnCfyzgqh1C9sI4OQJ9ShbuBwD3hz+bAd7X2+\ntrtpl9Xvco/TgDoxmAj8HF8fQVXoGqEO3PjVPphI71rCmXtHAPD+3KHN6aJ3vRHT\nGn0FUKjWOvSEF+npYVToRcH8pIGE0MV7WJserRiTII8IY+ABCWN6HMQp/wKBgQCx\nXUvYGF6ig81hVR1cEB9s2J4dzloaEMRc8omza6u+ucrpnK2nnAVsh7gwAWKYhajA\n6jM0IF46i2xbe8Cg50zquXadIhdG7LgPluU8Mfv8LskkjaxziIuE6crKh2aireJ6\nty1R0+akTXzmOBifY2Fk0nBeaRiVQU7QBhrW1ZdBYwKBgQCdwO9p7/Ythi4SLubH\n43paTUgtPE2atehAuJ22kpVeHoDUihNRn/uQROCxjRH7/STmlju+oFmAKlXRq5hx\n/5myqKLWpYJ6lxr8eXJaccxw93Y9hlVrK1Tt9GgxWQErY/gKgh2cYPdQ2sRqRQ6h\nC9vYAhA5a0LRuh4LuK9PkfqA+g==\n-----END PRIVATE KEY-----\n",
+  "client_email": "college-rankingaccess@collegeranking.iam.gserviceaccount.com",
+  "client_id": "113739877577102344346",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/college-rankingaccess%40collegeranking.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
